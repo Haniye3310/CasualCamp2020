@@ -166,6 +166,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tilePrefab: {fileID: 8085774649770262487, guid: d64fb1531df831a41a39b5c8889d4bd6,
     type: 3}
+  piece: {fileID: 856545374}
 --- !u!1 &291008249
 GameObject:
   m_ObjectHideFlags: 0
@@ -354,6 +355,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a054291a77a1941bdaefebcb3ed2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  board: {fileID: 198977079}
 --- !u!1 &894948100
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,7 +826,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 69fc9f735eeb5884ea102506efd4c127, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Number: 0
   piece: {fileID: 856545374}
 --- !u!1001 &5637787280038581024
 PrefabInstance:
