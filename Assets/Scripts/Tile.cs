@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
     {
         _childHighLight.SetActive(false);
     }
-    bool IsHighLight() 
+    public bool IsHighLight() 
     {
         return _childHighLight.activeInHierarchy;
     }

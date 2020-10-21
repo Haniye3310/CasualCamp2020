@@ -13,6 +13,7 @@ public class Dice : MonoBehaviour
     }
     public void Dice_OnClick()
     {
+        int counter = 0;
         if (!_lock) 
         {
             Number = Mathf.Floor(Random.Range(1.0f, 7.0f));
@@ -20,6 +21,21 @@ public class Dice : MonoBehaviour
             Board.Instance.Piece.RecognizePath(Number);
             SwitchLock();
             
+        }
+        if (_lock) 
+        {
+            for(int i = 0; i< Board.LENGTH; i++) 
+            { 
+                for(int j = 0; j <Board.LENGTH;j++)
+                {
+                    if (!Board.Instance.Tiles[i, j].IsHighLight())
+                    {
+                        counter++;
+                    }
+                }
+            }
+            if (counter == 100)
+                SwitchLock();
         }
     }
     public static void SwitchLock() 
