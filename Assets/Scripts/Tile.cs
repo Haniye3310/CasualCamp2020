@@ -28,5 +28,5 @@ public class Tile : MonoBehaviour
             Board.Instance.Piece.Move();
         }
     }
-  
+   
 }

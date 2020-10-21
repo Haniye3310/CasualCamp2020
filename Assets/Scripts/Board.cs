@@ -8,15 +8,19 @@ public class Board : MonoBehaviour
     [SerializeField] GameObject _tilePrefab;
     public Tile[,] Tiles;
     public Piece Piece;
+    int[,] _design; 
     public static Board Instance { get; private set; }
     void Awake() 
-    { 
-        Instance = this;
+    { if(Instance == null)
+            Instance = this;
+
     }
     void Start() 
     {
         Tiles = new Tile[LENGTH, LENGTH];
         ArrangeTiles();
+        ArrangeMineOrPlane();
+        
     }
     void ArrangeTiles() 
     { 
@@ -31,4 +35,35 @@ public class Board : MonoBehaviour
             }
         }
     }
+     void ArrangeMineOrPlane() 
+    {
+
+        _design = new int[LENGTH, LENGTH] {
+            { 0 , -1 , 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 },
+            { 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 , -1 , 0 },
+            { -1 , 0 , 0 , -1 , 0 , 0 , -1 , 0 , 1 , 0 },
+            { 0 , -1 , 0 , 0 , -1 , 0 , 0 , -1 , 0 , 0 },
+            { 0 , 1 , 0 , 0 , -1 , -1 , 0 , 0 , 0 , 0 },
+            { 0 , -1 , 0 , 0 , 1 , 0 , 0 , -1 , 0 , -1},
+            { -1 , 1 , 0 , 0 , 0 , 0 , -1 , 0 , 0 , 1 },
+            { 0 , 0 , 0 , -1 , 1 , 0 , 0 , 0 , 0 , -1 }, 
+            { 0 , 0 , 0 , -1 , 0 , 0 , 0 , 0 , -1 , 0 }, 
+            { 0 , 0 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 } 
+        };
+
+        for (int i = 0; i < LENGTH; i++)
+        {
+            for (int j = 0; j < LENGTH; j++)
+            {
+                if (Board.Instance._design[LENGTH-i-1, j] == 1)
+                    Tiles[j, i].transform.GetChild(1).gameObject.SetActive(true);
+                else if (Board.Instance._design[LENGTH - i - 1, j] == -1)
+                    Tiles[ j, i].transform.GetChild(2).gameObject.SetActive(true);
+                else if (Board.Instance._design[LENGTH - i - 1, j] == 0)
+                    continue;
+            }
+        }
+    }
 }
+
+
