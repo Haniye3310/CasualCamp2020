@@ -29,7 +29,7 @@ public class Board : MonoBehaviour
             for (int j = 0; j < LENGTH; j++) 
             {
                 GameObject tile = Instantiate(_tilePrefab,new Vector3(i, j, 0),Quaternion.identity) as GameObject;
-                Tiles[i, j] = tile.GetComponent<Tile>();
+                Tiles.SetTransformUnityCoord(i, j, tile.GetComponent<Tile>());
                 tile.name = "Tile(" + i + "," + j + ")";
                 tile.transform.parent = transform;
             }
@@ -55,15 +55,16 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < LENGTH; j++)
             {
-                if (Board.Instance._design[LENGTH-i-1, j] == 1)
-                    Tiles[j, i].transform.GetChild(1).gameObject.SetActive(true);
-                else if (Board.Instance._design[LENGTH - i - 1, j] == -1)
-                    Tiles[ j, i].transform.GetChild(2).gameObject.SetActive(true);
-                else if (Board.Instance._design[LENGTH - i - 1, j] == 0)
+                if (Board.Instance._design[i,j] == 1)
+                    Tiles[i,j].transform.GetChild(1).gameObject.SetActive(true);
+                else if (Board.Instance._design[i,j] == -1)
+                    Tiles[i,j].transform.GetChild(2).gameObject.SetActive(true);
+                else if (Board.Instance._design[i,j] == 0)
                     continue;
             }
         }
     }
+
 }
 
 
