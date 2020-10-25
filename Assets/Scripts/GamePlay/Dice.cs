@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Dice : MonoBehaviour
 {
-    public static float  Number;
+    public static int  Number;
     static bool _lock;
     void Start() 
     {
@@ -13,29 +13,21 @@ public class Dice : MonoBehaviour
     }
     public void Dice_OnClick()
     {
-        int counter = 0;
+        var piecePos = Board.Instance.Piece.transform.position;
         if (!_lock) 
         {
-            Number = Mathf.Floor(Random.Range(1.0f, 7.0f));
+            Number =(int) Mathf.Floor(Random.Range(1.0f, 7.0f));
             GetComponentInChildren<Text>().text = Number.ToString();
             Board.Instance.Piece.RecognizePath(Number);
             SwitchLock();
             
         }
-        if (_lock) 
+        if (_lock 
+            && piecePos.y == Board.LENGTH - 1 
+            && Number> piecePos.x
+            && Board.Instance.Design[(int)piecePos.x, (int)piecePos.y]!=-1)
         {
-            for(int i = 0; i< Board.LENGTH; i++) 
-            { 
-                for(int j = 0; j <Board.LENGTH;j++)
-                {
-                    if (!Board.Instance.Tiles[i, j].IsHighLight())
-                    {
-                        counter++;
-                    }
-                }
-            }
-            if (counter == 100)
-                SwitchLock();
+            SwitchLock();
         }
     }
     public static void SwitchLock() 

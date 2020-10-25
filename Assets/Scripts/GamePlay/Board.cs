@@ -8,7 +8,7 @@ public class Board : MonoBehaviour
     [SerializeField] GameObject _tilePrefab;
     public Tile[,] Tiles;
     public Piece Piece;
-    int[,] _design; 
+    public int[,] Design; 
     public static Board Instance { get; private set; }
     void Awake() 
     { if(Instance == null)
@@ -38,7 +38,7 @@ public class Board : MonoBehaviour
      void ArrangeMineOrPlane() 
     {
 
-        _design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, LENGTH] {
+        Design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, LENGTH] {
             { 0 , -1 , 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 },
             { 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 , -1 , 0 },
             { -1 , 0 , 0 , -1 , 0 , 0 , -1 , 0 , 1 , 0 },
@@ -55,11 +55,11 @@ public class Board : MonoBehaviour
         {
             for (int j = 0; j < LENGTH; j++)
             {
-                if (Board.Instance._design[i, j] == 1)
+                if (Board.Instance.Design[i, j] == 1)
                     Tiles[i, j].transform.GetChild(1).gameObject.SetActive(true);
-                else if (Board.Instance._design[i, j] == -1)
+                else if (Board.Instance.Design[i, j] == -1)
                     Tiles[i, j].transform.GetChild(2).gameObject.SetActive(true);
-                else if (Board.Instance._design[i, j] == 0)
+                else if (Board.Instance.Design[i, j] == 0)
                     continue;
             }
         }
