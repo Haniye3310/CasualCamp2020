@@ -7,9 +7,13 @@ public class Piece : MonoBehaviour
     Tile _goal;
     public void RecognizePath(int amount)
     {
-        var nextPos = MoveToward(this.transform.position,amount);
-        Board.Instance.Tiles[(int)nextPos.x,(int) nextPos.y].HighLight();
-        _goal = Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y];
+        if (MoveToward(this.transform.position, amount).y != Board.LENGTH) 
+        {
+            var nextPos = MoveToward(this.transform.position, amount);
+            Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y].HighLight();
+            _goal = Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y];
+        }
+        
     }
     public void Move()
     {
@@ -19,28 +23,29 @@ public class Piece : MonoBehaviour
         {
             StartCoroutine( MineAction());
         }
-        if (_goal.transform.GetChild(1).gameObject.activeInHierarchy) 
-        {
-            var nextPos = new Vector2(-1, -1);
-            int safety = 500;
-            int counter = 0;
-            while(nextPos.x != -1 && Board.Instance.Design[(int)nextPos.x,(int)nextPos.y]==0)
-            {
-                int step = GetStep(this.transform.position);
-                nextPos = MoveToward(this.transform.position, Random.Range(step, Board.LENGTH*Board.LENGTH));
-                counter++;
-                if (counter > safety) break;
-            }
-        
-        }
+        //if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
+        //{
+        //    var nextPos = new Vector2(-1, -1);
+        //    int safety = 500;
+        //    int counter = 0;
+        //    while (nextPos.x != -1 && Board.Instance.Design[(int)nextPos.x, (int)nextPos.y] == 0)
+        //    {
+        //        int step = GetStep(this.transform.position);
+        //        nextPos = MoveToward(this.transform.position, Random.Range(step, Board.LENGTH * Board.LENGTH));
+        //        counter++;
+        //        if (counter > safety) break;
+        //    }
+
+        //}
         else Dice.SwitchLock();
     }
     IEnumerator MineAction() 
     {
-        while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(2).gameObject.activeInHierarchy) 
+        while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(2).gameObject.activeInHierarchy 
+               && MoveToward(this.transform.position, -4).y != -1) 
         {
             yield return new WaitForSeconds(2);
-            this.transform.position = MoveToward(this.transform.position , -4);
+            this.transform.position = MoveToward(this.transform.position, -4);
         }
         Dice.SwitchLock();
     }
@@ -127,18 +132,17 @@ public class Piece : MonoBehaviour
                 }
             }
         }
-        if (j == -1 || j == Board.LENGTH) return currentPos;
         return new Vector2(i,j);
     }
 
-    int GetStep(Vector2 currentPos)
-    {
-        int ret = (int)currentPos.y * Board.LENGTH;
+    //int GetStep(Vector2 currentPos)
+    //{
+    //    int ret = (int)currentPos.y * Board.LENGTH;
 
-        if (currentPos.y % 2 == 0) ret += (int)currentPos.x;
+    //    if (currentPos.y % 2 == 0) ret += (int)currentPos.x;
 
-        if (currentPos.y % 2 != 0) ret += Board.LENGTH - (int)currentPos.x;
+    //    if (currentPos.y % 2 != 0) ret += Board.LENGTH - (int)currentPos.x;
 
-        return ret;
-    }
+    //    return ret;
+    //}
 }
