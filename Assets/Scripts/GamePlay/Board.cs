@@ -29,8 +29,8 @@ public class Board : MonoBehaviour
             for (int j = 0; j < LENGTH; j++) 
             {
                 GameObject tile = Instantiate(_tilePrefab,new Vector3(i, j, 0),Quaternion.identity) as GameObject;
-                Tiles.SetTransformUnityCoord(i, j, tile.GetComponent<Tile>());
-                tile.name = "Tile(" + i + "," + j + ")";
+                Tiles[i,j]=tile.GetComponent<Tile>();
+                tile.name = "Tile(" + i + "," + j+ ")";
                 tile.transform.parent = transform;
             }
         }
@@ -38,7 +38,7 @@ public class Board : MonoBehaviour
      void ArrangeMineOrPlane() 
     {
 
-        _design = new int[LENGTH, LENGTH] {
+        _design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, LENGTH] {
             { 0 , -1 , 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 },
             { 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 , -1 , 0 },
             { -1 , 0 , 0 , -1 , 0 , 0 , -1 , 0 , 1 , 0 },
@@ -46,20 +46,20 @@ public class Board : MonoBehaviour
             { 0 , 1 , 0 , 0 , -1 , -1 , 0 , 0 , 0 , 0 },
             { 0 , -1 , 0 , 0 , 1 , 0 , 0 , -1 , 0 , -1},
             { -1 , 1 , 0 , 0 , 0 , 0 , -1 , 0 , 0 , 1 },
-            { 0 , 0 , 0 , -1 , 1 , 0 , 0 , 0 , 0 , -1 }, 
-            { 0 , 0 , 0 , -1 , 0 , 0 , 0 , 0 , -1 , 0 }, 
-            { 0 , 0 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 } 
-        };
+            { 0 , 0 , 0 , -1 , 1 , 0 , 0 , 0 , 0 , -1 },
+            { 0 , 0 , 0 , -1 , 0 , 0 , 0 , 0 , -1 , 0 },
+            { 0 , 0 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 }
+        });
 
         for (int i = 0; i < LENGTH; i++)
         {
             for (int j = 0; j < LENGTH; j++)
             {
-                if (Board.Instance._design[i,j] == 1)
-                    Tiles[i,j].transform.GetChild(1).gameObject.SetActive(true);
-                else if (Board.Instance._design[i,j] == -1)
-                    Tiles[i,j].transform.GetChild(2).gameObject.SetActive(true);
-                else if (Board.Instance._design[i,j] == 0)
+                if (Board.Instance._design[i, j] == 1)
+                    Tiles[i, j].transform.GetChild(1).gameObject.SetActive(true);
+                else if (Board.Instance._design[i, j] == -1)
+                    Tiles[i, j].transform.GetChild(2).gameObject.SetActive(true);
+                else if (Board.Instance._design[i, j] == 0)
                     continue;
             }
         }
