@@ -23,20 +23,27 @@ public class Piece : MonoBehaviour
         {
             StartCoroutine( MineAction());
         }
-        //if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
-        //{
-        //    var nextPos = new Vector2(-1, -1);
-        //    int safety = 500;
-        //    int counter = 0;
-        //    while (nextPos.x != -1 && Board.Instance.Design[(int)nextPos.x, (int)nextPos.y] == 0)
-        //    {
-        //        int step = GetStep(this.transform.position);
-        //        nextPos = MoveToward(this.transform.position, Random.Range(step, Board.LENGTH * Board.LENGTH));
-        //        counter++;
-        //        if (counter > safety) break;
-        //    }
+        else if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
+        {
+            Vector2Int loop =new Vector2Int((int) _goal.transform.position.x,(int) _goal.transform.position.y);
+            List<Vector2Int> emptySpaces = new List<Vector2Int>();
 
-        //}
+            for(int i = 0; i < Board.LENGTH; i++) 
+            {
+                for(int j = loop.y+1; j<Board.LENGTH; j++) 
+                {
+                    if (Board.Instance.Design[i, j] == 0)
+                    {
+                        emptySpaces.Add(new Vector2Int(i, j));
+                    }
+                }
+            }
+            var vec2 =emptySpaces[ Random.Range(0, emptySpaces.Count -1)];
+            this.transform.position = new Vector2(vec2.x, vec2.y);
+            Dice.SwitchLock();
+
+
+        }
         else Dice.SwitchLock();
     }
     IEnumerator MineAction() 
@@ -139,7 +146,7 @@ public class Piece : MonoBehaviour
     //{
     //    int ret = (int)currentPos.y * Board.LENGTH;
 
-    //    if (currentPos.y % 2 == 0) ret += (int)currentPos.x;
+    //    if (currentPos.y % 2 == 0) ret += (int)currentPos.x + 1;
 
     //    if (currentPos.y % 2 != 0) ret += Board.LENGTH - (int)currentPos.x;
 
