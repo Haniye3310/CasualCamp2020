@@ -25,26 +25,7 @@ public class Piece : MonoBehaviour
         }
         else if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
         {
-            Vector2Int loop =new Vector2Int((int) _goal.transform.position.x,(int) _goal.transform.position.y);
-            List<Vector2Int> emptySpaces = new List<Vector2Int>();
-            int loopend=0;
-            if (loop.y < 3) loopend = loop.y + 3;
-            else if (loop.y >= 3 && loop.y < 6) loopend = loop.y + 2;
-            else if (loop.y >= 6 && loop.y < 9) loopend = loop.y + 1;
-            for (int i = 0; i < Board.LENGTH; i++)
-            {
-                for (int j = loop.y + 1; j <= loopend; j++)
-                {
-                    if (Board.Instance.Design[i, j] == 0)
-                    {
-                        emptySpaces.Add(new Vector2Int(i, j));
-                    }
-                }
-            }
-            var vec2 =emptySpaces[ Random.Range(0, emptySpaces.Count -1)];
-            this.transform.position = new Vector2(vec2.x, vec2.y);
-            Dice.SwitchLock();
-
+            StartCoroutine(PlaneAction());
 
         }
         else Dice.SwitchLock();
@@ -57,6 +38,29 @@ public class Piece : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             this.transform.position = MoveToward(this.transform.position, -4);
         }
+        Dice.SwitchLock();
+    }
+    IEnumerator PlaneAction() 
+    {
+        yield return new WaitForSeconds(0.5f);
+        Vector2Int loop = new Vector2Int((int)_goal.transform.position.x, (int)_goal.transform.position.y);
+        List<Vector2Int> emptySpaces = new List<Vector2Int>();
+        int loopend = 0;
+        if (loop.y < 3) loopend = loop.y + 3;
+        else if (loop.y >= 3 && loop.y < 6) loopend = loop.y + 2;
+        else if (loop.y >= 6 && loop.y < 9) loopend = loop.y + 1;
+        for (int i = 0; i < Board.LENGTH; i++)
+        {
+            for (int j = loop.y + 1; j <= loopend; j++)
+            {
+                if (Board.Instance.Design[i, j] == 0)
+                {
+                    emptySpaces.Add(new Vector2Int(i, j));
+                }
+            }
+        }
+        var vec2 = emptySpaces[Random.Range(0, emptySpaces.Count - 1)];
+        this.transform.position = new Vector2(vec2.x, vec2.y);
         Dice.SwitchLock();
     }
     Vector2 MoveToward(Vector2 currentPos, int moveAmount) 
