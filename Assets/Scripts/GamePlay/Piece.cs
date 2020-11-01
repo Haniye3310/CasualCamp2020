@@ -27,10 +27,13 @@ public class Piece : MonoBehaviour
         {
             Vector2Int loop =new Vector2Int((int) _goal.transform.position.x,(int) _goal.transform.position.y);
             List<Vector2Int> emptySpaces = new List<Vector2Int>();
-
-            for(int i = 0; i < Board.LENGTH; i++) 
+            int loopend=0;
+            if (loop.y < 3) loopend = loop.y + 3;
+            else if (loop.y >= 3 && loop.y < 6) loopend = loop.y + 2;
+            else if (loop.y >= 6 && loop.y < 9) loopend = loop.y + 1;
+            for (int i = 0; i < Board.LENGTH; i++)
             {
-                for(int j = loop.y+1; j<Board.LENGTH; j++) 
+                for (int j = loop.y + 1; j <= loopend; j++)
                 {
                     if (Board.Instance.Design[i, j] == 0)
                     {
@@ -51,7 +54,7 @@ public class Piece : MonoBehaviour
         while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(2).gameObject.activeInHierarchy 
                && MoveToward(this.transform.position, -4).y != -1) 
         {
-            yield return new WaitForSeconds(2);
+            yield return new WaitForSeconds(0.5f);
             this.transform.position = MoveToward(this.transform.position, -4);
         }
         Dice.SwitchLock();
