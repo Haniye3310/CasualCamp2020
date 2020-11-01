@@ -5,6 +5,15 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     Tile _goal;
+    void Start() 
+    {
+        StartCoroutine(initial());
+    }
+    IEnumerator initial() 
+    {
+        yield return new WaitForSeconds(0.5f);
+        this.transform.position = new Vector3(0,0,0);
+    }
     public void RecognizePath(int amount)
     {
         if (MoveToward(this.transform.position, amount).y != Board.LENGTH) 
@@ -43,15 +52,15 @@ public class Piece : MonoBehaviour
     IEnumerator PlaneAction() 
     {
         yield return new WaitForSeconds(0.5f);
-        Vector2Int loop = new Vector2Int((int)_goal.transform.position.x, (int)_goal.transform.position.y);
+        Vector2Int airPlanePos = new Vector2Int((int)_goal.transform.position.x, (int)_goal.transform.position.y);
         List<Vector2Int> emptySpaces = new List<Vector2Int>();
-        int loopend = 0;
-        if (loop.y < 3) loopend = loop.y + 3;
-        else if (loop.y >= 3 && loop.y < 6) loopend = loop.y + 2;
-        else if (loop.y >= 6 && loop.y < 9) loopend = loop.y + 1;
+        int loopEnd = 0;
+        if (airPlanePos.y < 3) loopEnd = airPlanePos.y + 3;
+        else if (airPlanePos.y >= 3 && airPlanePos.y < 6) loopEnd = airPlanePos.y + 2;
+        else if (airPlanePos.y >= 6 && airPlanePos.y < 9) loopEnd = airPlanePos.y + 1;
         for (int i = 0; i < Board.LENGTH; i++)
         {
-            for (int j = loop.y + 1; j <= loopend; j++)
+            for (int j = airPlanePos.y + 1; j <= loopEnd; j++)
             {
                 if (Board.Instance.Design[i, j] == 0)
                 {
