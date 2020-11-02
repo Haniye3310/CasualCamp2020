@@ -25,7 +25,7 @@ public class Tile : MonoBehaviour
     {
         if (IsHighLight()) 
         {
-            Board.Instance.Piece.Move();
+            Board.Instance.pieces[Board.Instance.Turn].Move();
         }
     }
    

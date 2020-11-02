@@ -13,20 +13,22 @@ public class Dice : MonoBehaviour
     }
     public void Dice_OnClick()
     {
-        var piecePos = Board.Instance.Piece.transform.position;
+         
+        var piecePos = Board.Instance.pieces[Board.Instance.Turn].transform.position;
         if (!_lock) 
         {
             Number =(int) Mathf.Floor(Random.Range(1.0f, 7.0f));
             GetComponentInChildren<Text>().text = Number.ToString();
-            Board.Instance.Piece.RecognizePath(Number);
+            Board.Instance.pieces[Board.Instance.Turn].RecognizePath(Number);
             SwitchLock();
             
         }
-        if (_lock 
-            && piecePos.y == Board.LENGTH - 1 
-            && Number> piecePos.x
-            && Board.Instance.Design[(int)piecePos.x, (int)piecePos.y]!=-1)
+        if (_lock
+            && piecePos.y == Board.LENGTH - 1
+            && Number > piecePos.x
+            && Board.Instance.Design[(int)piecePos.x, (int)piecePos.y] != -1)
         {
+            Board.Instance.SwitchTurn();
             SwitchLock();
         }
     }

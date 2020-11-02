@@ -5,17 +5,9 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     Tile _goal;
-    void Start() 
-    {
-        StartCoroutine(initial());
-    }
-    IEnumerator initial() 
-    {
-        yield return new WaitForSeconds(0.5f);
-        this.transform.position = new Vector3(0,0,0);
-    }
     public void RecognizePath(int amount)
     {
+        if (this.transform.position.y < 0) this.transform.position = new Vector3(0, 0, 0);
         if (MoveToward(this.transform.position, amount).y != Board.LENGTH) 
         {
             var nextPos = MoveToward(this.transform.position, amount);
@@ -26,6 +18,7 @@ public class Piece : MonoBehaviour
     }
     public void Move()
     {
+
         this.transform.position = _goal.transform.position;
         _goal.OffLight();
         if (_goal.transform.GetChild(2).gameObject.activeInHierarchy) 
@@ -38,6 +31,7 @@ public class Piece : MonoBehaviour
 
         }
         else Dice.SwitchLock();
+        Board.Instance.SwitchTurn();
     }
     IEnumerator MineAction() 
     {

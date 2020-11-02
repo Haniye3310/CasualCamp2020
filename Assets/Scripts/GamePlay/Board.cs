@@ -7,8 +7,9 @@ public class Board : MonoBehaviour
     public const int LENGTH = 10;
     [SerializeField] GameObject _tilePrefab;
     public Tile[,] Tiles;
-    public Piece Piece;
-    public int[,] Design; 
+    public Piece[] pieces = new Piece[2];
+    public int[,] Design;
+    public int Turn;
     public static Board Instance { get; private set; }
     void Awake() 
     { if(Instance == null)
@@ -35,7 +36,7 @@ public class Board : MonoBehaviour
             }
         }
     }
-     void ArrangeMineOrPlane() 
+    void ArrangeMineOrPlane() 
     {
 
         Design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, LENGTH] {
@@ -64,7 +65,11 @@ public class Board : MonoBehaviour
             }
         }
     }
-
+    public void SwitchTurn() 
+    {
+        Turn++;
+        if (Turn == pieces.Length) Turn = 0;
+    }
 }
 
 
