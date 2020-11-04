@@ -11,5 +11,9 @@ public class UIManager : MonoBehaviour
          SceneManager.LoadSceneAsync(2);
          LoadingBar.SetActive(true);
     }
- 
+    public void NewGame_OnClick()
+    {
+        SceneManager.LoadScene(2);
+    }
+
 }

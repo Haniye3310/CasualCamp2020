@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class Board : MonoBehaviour
     public Piece[] pieces = new Piece[2];
     public int[,] Design;
     public int Turn;
+    public GameObject Panel;
+    public Text Text;
     public static Board Instance { get; private set; }
     void Awake() 
     { if(Instance == null)
@@ -69,6 +72,14 @@ public class Board : MonoBehaviour
     {
         Turn++;
         if (Turn == pieces.Length) Turn = 0;
+    }
+    public void WinOrLoose() 
+    {
+        if (pieces[Turn].transform.position.y == Board.LENGTH - 1 && pieces[Turn].transform.position.x==0) 
+        {
+            Panel.SetActive(true);
+            Text.text = ""+pieces[Turn].name+" Win!";
+        }
     }
 }
 

@@ -31,7 +31,9 @@ public class Piece : MonoBehaviour
 
         }
         else Dice.SwitchLock();
+        Board.Instance.WinOrLoose();
         Board.Instance.SwitchTurn();
+        
     }
     IEnumerator MineAction() 
     {
