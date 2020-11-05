@@ -73,6 +73,7 @@ public class Board : MonoBehaviour
         Turn++;
         if (Turn == pieces.Length) Turn = 0;
     }
+   
     public void WinOrLoose() 
     {
         if (pieces[Turn].transform.position.y == Board.LENGTH - 1 && pieces[Turn].transform.position.x==0) 
