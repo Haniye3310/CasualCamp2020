@@ -39,24 +39,24 @@ public class Piece : MonoBehaviour
     }
     IEnumerator MineAction() 
     {
+        
         while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(2).gameObject.activeInHierarchy 
                && MoveToward(this.transform.position, -4).y != -1) 
         {
-            Board.Instance.pieces[Board.Instance.Turn].transform.GetChild(0).gameObject.SetActive(true);
-            int t = Board.Instance.Turn;
+            this.transform.GetChild(0).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.7f);
+            this.transform.GetChild(0).gameObject.SetActive(false);
             this.transform.position = MoveToward(this.transform.position, -4);
-            Board.Instance.pieces[t].transform.GetChild(0).gameObject.SetActive(false);
         }
+        this.transform.GetChild(0).gameObject.SetActive(false);
         Dice.SwitchLock();
 
     }
     IEnumerator PlaneAction() 
     {
-        Board.Instance.pieces[Board.Instance.Turn].transform.GetChild(1).gameObject.SetActive(true);
-        int t = Board.Instance.Turn;
+        this.transform.GetChild(1).gameObject.SetActive(true);
         yield return new WaitForSeconds(0.7f);
-        Board.Instance.pieces[t].transform.GetChild(1).gameObject.SetActive(false);
+        this.transform.GetChild(1).gameObject.SetActive(false);
         Vector2Int airPlanePos = new Vector2Int((int)_goal.transform.position.x, (int)_goal.transform.position.y);
         List<Vector2Int> emptySpaces = new List<Vector2Int>();
         int loopEnd = 0;

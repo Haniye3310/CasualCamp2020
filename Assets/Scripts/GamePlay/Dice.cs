@@ -7,6 +7,9 @@ public class Dice : MonoBehaviour
 {
     public static int  Number;
     static bool _lock;
+    [SerializeField] Animator anim;
+    [SerializeField] Sprite[] _diceNumbers;
+    [SerializeField] Image _diceImage;
     void Start() 
     {
         _lock = false;
@@ -17,9 +20,9 @@ public class Dice : MonoBehaviour
         var piecePos = Board.Instance.pieces[Board.Instance.Turn].transform.position;
         if (!_lock) 
         {
+            
             Number =(int) Mathf.Floor(Random.Range(1.0f, 7.0f));
-            GetComponentInChildren<Text>().text = Number.ToString();
-            Board.Instance.pieces[Board.Instance.Turn].RecognizePath(Number);
+            StartCoroutine(SetDiceFixedImage());
             SwitchLock();
             
         }
@@ -38,5 +41,13 @@ public class Dice : MonoBehaviour
             _lock = false;
         else if(!_lock)
             _lock = true;
+    }
+    IEnumerator SetDiceFixedImage() 
+    {
+        anim.enabled = true;
+        yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
+        anim.enabled = false;
+        _diceImage.sprite = _diceNumbers[Number - 1];
+        Board.Instance.pieces[Board.Instance.Turn].RecognizePath(Number);
     }
 }
