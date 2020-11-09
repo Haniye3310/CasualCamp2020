@@ -17,37 +17,38 @@ public class Dice : MonoBehaviour
     public void Dice_OnClick()
     {
          
-        var piecePos = Board.Instance.pieces[Board.Instance.Turn].transform.position;
+        var piecePos = Board.Instance.Pieces[Board.Instance.Turn].transform.position;
         if (!_lock) 
         {
-            
             Number =(int) Mathf.Floor(Random.Range(1.0f, 7.0f));
             StartCoroutine(SetDiceFixedImage());
-            SwitchLock();
-            
+            SetLock(true);
+
+
         }
-        if (_lock
-            && piecePos.y == Board.LENGTH - 1
-            && Number > piecePos.x
-            && Board.Instance.Design[(int)piecePos.x, (int)piecePos.y] != -1)
-        {
-            Board.Instance.SwitchTurn();
-            SwitchLock();
-        }
+
     }
-    public static void SwitchLock() 
+
+    public static void SetLock(bool locked)
     {
-        if (_lock)
-            _lock = false;
-        else if(!_lock)
-            _lock = true;
+        if (_lock == locked)
+        {
+            if (locked)
+                Debug.LogError("You are lock again!");
+            else
+                Debug.LogError("You are unlock again!");
+        }
+
+        _lock = locked;
     }
-    IEnumerator SetDiceFixedImage() 
+
+    IEnumerator SetDiceFixedImage()
     {
         anim.enabled = true;
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         anim.enabled = false;
         _diceImage.sprite = _diceNumbers[Number - 1];
-        Board.Instance.pieces[Board.Instance.Turn].RecognizePath(Number);
+        Board.Instance.Pieces[Board.Instance.Turn].RecognizePath(Number);
+
     }
 }

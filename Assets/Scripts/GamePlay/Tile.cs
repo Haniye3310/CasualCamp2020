@@ -11,8 +11,8 @@ public class Tile : MonoBehaviour
     }
     public void HighLight() 
     {
-        if(Board.Instance.pieces[Board.Instance.Turn].name == "EnglishSoldier") _childHighLight.GetComponent<SpriteRenderer>().color = new Color(0.25f,0.31f,0.27f,1);
-        if (Board.Instance.pieces[Board.Instance.Turn].name == "FrenchSoldier") _childHighLight.GetComponent<SpriteRenderer>().color = new Color(0.42f, 0.81f, 0.96f, 1);
+        if(Board.Instance.Pieces[Board.Instance.Turn].name == "EnglishSoldier") _childHighLight.GetComponent<SpriteRenderer>().color = new Color(0.25f,0.31f,0.27f,1);
+        if (Board.Instance.Pieces[Board.Instance.Turn].name == "FrenchSoldier") _childHighLight.GetComponent<SpriteRenderer>().color = new Color(0.42f, 0.81f, 0.96f, 1);
         _childHighLight.SetActive(true);
     }
     public void OffLight() 
@@ -27,7 +27,7 @@ public class Tile : MonoBehaviour
     {
         if (IsHighLight()) 
         {
-            Board.Instance.pieces[Board.Instance.Turn].Move();
+            Board.Instance.Pieces[Board.Instance.Turn].Move();
         }
     }
    

@@ -8,13 +8,18 @@ public class Piece : MonoBehaviour
     public void RecognizePath(int amount)
     {
         if (this.transform.position.y < 0) this.transform.position = new Vector3(0, 0, 0);
-        if (MoveToward(this.transform.position, amount).y != Board.LENGTH) 
+        if (MoveToward(this.transform.position, amount).y < Board.LENGTH)
         {
             var nextPos = MoveToward(this.transform.position, amount);
             Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y].HighLight();
             _goal = Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y];
         }
-        
+        else
+        {
+            Dice.SetLock(false);
+            Board.Instance.SwitchTurn();
+        }
+
     }
     public void Move()
     {
@@ -29,10 +34,9 @@ public class Piece : MonoBehaviour
         else if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
         {
             StartCoroutine(PlaneAction());
-            
-
+           
         }
-        else Dice.SwitchLock();
+        else Dice.SetLock(false);
         Board.Instance.WinOrLoose();
         Board.Instance.SwitchTurn();
         
@@ -49,7 +53,7 @@ public class Piece : MonoBehaviour
             this.transform.position = MoveToward(this.transform.position, -4);
         }
         this.transform.GetChild(0).gameObject.SetActive(false);
-        Dice.SwitchLock();
+        Dice.SetLock(false);
 
     }
     IEnumerator PlaneAction() 
@@ -75,7 +79,7 @@ public class Piece : MonoBehaviour
         }
         var vec2 = emptySpaces[Random.Range(0, emptySpaces.Count - 1)];
         this.transform.position = new Vector2(vec2.x, vec2.y);
-        Dice.SwitchLock();
+        Dice.SetLock(false);
     }
     Vector2 MoveToward(Vector2 currentPos, int moveAmount) 
     {

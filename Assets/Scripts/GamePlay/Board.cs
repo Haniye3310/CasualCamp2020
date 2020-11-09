@@ -5,10 +5,13 @@ using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
+    [SerializeField] bool _pickRandomly = true;
     public const int LENGTH = 10;
     [SerializeField] GameObject _tilePrefab;
     public Tile[,] Tiles;
-    public Piece[] pieces = new Piece[2];
+    [SerializeField] List<Piece> _piecesPrefab = new List<Piece>();
+    [HideInInspector]
+    public Piece[] Pieces = new Piece[2];
     public int[,] Design;
     public int Turn;
     public GameObject Panel;
@@ -24,7 +27,7 @@ public class Board : MonoBehaviour
         Tiles = new Tile[LENGTH, LENGTH];
         ArrangeTiles();
         ArrangeMineOrPlane();
-        
+        PickPiecesRandomly();
     }
     void ArrangeTiles() 
     { 
@@ -44,15 +47,15 @@ public class Board : MonoBehaviour
 
         Design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, LENGTH] {
             { 0 , -1 , 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 },
-            { 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 , -1 , 0 },
-            { -1 , 0 , 0 , -1 , 0 , 0 , -1 , 0 , 1 , 0 },
-            { 0 , -1 , 0 , 0 , -1 , 0 , 0 , -1 , 0 , 0 },
-            { 0 , 1 , 0 , 0 , -1 , -1 , 0 , 0 , 0 , 0 },
+            { 0 , -1 , 2 , 2 , 2 , -1 , 0 , 0 , -1 , 0 },
+            { -1 , 0 , 0 , -1 , 2 , 2 , -1 , 0 , 1 , 0 },
+            { 0 , -1 , 2 , 2 , -1 , 0 , 0 , -1 , 0 , 0 },
+            { 0 , 1 , 2 , 2 , -1 , -1 , 2 , 2 , 2 , 2 },
             { 0 , -1 , 0 , 0 , 1 , 0 , 0 , -1 , 0 , -1},
-            { -1 , 1 , 0 , 0 , 0 , 0 , -1 , 0 , 0 , 1 },
-            { 0 , 0 , 0 , -1 , 1 , 0 , 0 , 0 , 0 , -1 },
-            { 0 , 0 , 0 , -1 , 0 , 0 , 0 , 0 , -1 , 0 },
-            { 0 , 0 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 }
+            { -1 , 1 , 2 , 2 , 2 , 2 , -1 , 0 , 0 , 1 },
+            { 2 , 2 , 2 , -1 , 1 , 2 , 2 , 2 , 2 , -1 },
+            { 0 , 0 , 0 , -1 , 2 , 2 , 2 , 2 , -1 , 0 },
+            { 2 , 2 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 }
         });
 
         for (int i = 0; i < LENGTH; i++)
@@ -63,6 +66,8 @@ public class Board : MonoBehaviour
                     Tiles[i, j].transform.GetChild(1).gameObject.SetActive(true);
                 else if (Board.Instance.Design[i, j] == -1)
                     Tiles[i, j].transform.GetChild(2).gameObject.SetActive(true);
+                else if (Board.Instance.Design[i, j] == 2)
+                    Tiles[i, j].transform.GetChild(3).gameObject.SetActive(true);
                 else if (Board.Instance.Design[i, j] == 0)
                     continue;
             }
@@ -71,17 +76,35 @@ public class Board : MonoBehaviour
     public void SwitchTurn() 
     {
         Turn++;
-        if (Turn == pieces.Length) Turn = 0;
+        if (Turn == Pieces.Length) Turn = 0;
     }
-   
     public void WinOrLoose() 
     {
-        if (pieces[Turn].transform.position.y == Board.LENGTH - 1 && pieces[Turn].transform.position.x==0) 
+        if (Pieces[Turn].transform.position.y == Board.LENGTH - 1 && Pieces[Turn].transform.position.x==0) 
         {
             Panel.SetActive(true);
-            Text.text = ""+pieces[Turn].name+" Win!";
+            Text.text = ""+Pieces[Turn].name+" Win!";
         }
     }
+
+    private void PickPiecesRandomly() 
+    {
+        if(!_pickRandomly)
+        {
+            Pieces = _piecesPrefab.ToArray();
+            return;
+        }
+
+        for (int i=0; i < Pieces.Length;i++)
+        {
+            int randIdx=(int)Mathf.Floor(Random.Range(0.0f, _piecesPrefab.Count- 0.00001f));
+            Pieces[i] = _piecesPrefab[randIdx];
+            _piecesPrefab.RemoveAt(randIdx);
+            Pieces[i].transform.position = new Vector2(i, -1);
+        }
+
+    }
+
 }
 
 
