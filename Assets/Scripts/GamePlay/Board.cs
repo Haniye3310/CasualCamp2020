@@ -100,7 +100,7 @@ public class Board : MonoBehaviour
             int randIdx=(int)Mathf.Floor(Random.Range(0.0f, _piecesPrefab.Count- 0.00001f));
             Pieces[i] = _piecesPrefab[randIdx];
             _piecesPrefab.RemoveAt(randIdx);
-            Pieces[i].PieceStartPosition = new Vector2(i, -1);
+            Pieces[i].PieceStartPosition = new Vector2(i, -1.3f);
             Pieces[i].transform.position = Pieces[i].PieceStartPosition;
 
         }
