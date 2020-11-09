@@ -5,6 +5,8 @@ using UnityEngine;
 public class Piece : MonoBehaviour
 {
     Tile _goal;
+    [HideInInspector]
+    public Vector2 PieceStartPosition;
     public void RecognizePath(int amount)
     {
         if (this.transform.position.y < 0) this.transform.position = new Vector3(0, 0, 0);
@@ -44,15 +46,16 @@ public class Piece : MonoBehaviour
     IEnumerator MineAction() 
     {
         
-        while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(2).gameObject.activeInHierarchy 
-               && MoveToward(this.transform.position, -4).y != -1) 
+        while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(2).gameObject.activeInHierarchy) 
         {
+            
             this.transform.GetChild(0).gameObject.SetActive(true);
             yield return new WaitForSeconds(0.7f);
             this.transform.GetChild(0).gameObject.SetActive(false);
+            if (MoveToward(this.transform.position, -4).y < 0) { this.transform.position = this.PieceStartPosition;break; }
             this.transform.position = MoveToward(this.transform.position, -4);
+            
         }
-        this.transform.GetChild(0).gameObject.SetActive(false);
         Dice.SetLock(false);
 
     }

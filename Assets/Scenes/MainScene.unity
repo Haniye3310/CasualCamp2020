@@ -960,6 +960,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a054291a77a1941bdaefebcb3ed2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PieceStartPosition: {x: 0, y: 0}
 --- !u!1 &894948100
 GameObject:
   m_ObjectHideFlags: 0
@@ -1672,6 +1673,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a054291a77a1941bdaefebcb3ed2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PieceStartPosition: {x: 0, y: 0}
 --- !u!1 &2104149313
 GameObject:
   m_ObjectHideFlags: 0
