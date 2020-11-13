@@ -55,7 +55,7 @@ public class Piece : MonoBehaviour
             
             this.transform.GetChild(0).gameObject.SetActive(true);
             Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(true);
-            yield return new WaitForSeconds(0.7f);
+            yield return new WaitForSeconds(1.3f);
             this.transform.GetChild(0).gameObject.SetActive(false);
             Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(false);
             if (MoveToward(this.transform.position, -4).y < 0) { this.transform.position = this.PieceStartPosition;break; }
