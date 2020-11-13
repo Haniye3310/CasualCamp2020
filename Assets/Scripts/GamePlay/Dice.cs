@@ -16,17 +16,13 @@ public class Dice : MonoBehaviour
     }
     public void Dice_OnClick()
     {
-         
         var piecePos = Board.Instance.Pieces[Board.Instance.Turn].transform.position;
         if (!_lock) 
         {
             Number =(int) Mathf.Floor(Random.Range(1.0f, 7.0f));
             StartCoroutine(SetDiceFixedImage());
             SetLock(true);
-
-
         }
-
     }
 
     public static void SetLock(bool locked)
@@ -40,6 +36,9 @@ public class Dice : MonoBehaviour
         }
 
         _lock = locked;
+
+        if (locked == false)
+            Board.Instance.ScalePiecesInSamePos();
     }
 
     IEnumerator SetDiceFixedImage()

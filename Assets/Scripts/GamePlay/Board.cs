@@ -87,7 +87,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    private void PickPiecesRandomly() 
+    void PickPiecesRandomly() 
     {
         if(!_pickRandomly)
         {
@@ -107,6 +107,23 @@ public class Board : MonoBehaviour
 
     }
 
+    public void ScalePiecesInSamePos()
+    {
+        for (int i = 0; i < Pieces.Length; i++)
+        {
+            bool setHalf = false;
+            for (int j = 0; j < Pieces.Length; j++)
+            {
+                if (i == j) continue;
+                if (Pieces[i].transform.position == Pieces[j].transform.position)
+                {
+                    Pieces[i].SetScaleHalf(i);
+                    setHalf = true;
+                    break;
+                }
+            }
+            if(!setHalf)
+                Pieces[i].SetScaleNormal();
+        }
+    }
 }
-
-

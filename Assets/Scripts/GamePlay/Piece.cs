@@ -7,6 +7,10 @@ public class Piece : MonoBehaviour
     Tile _goal;
     [HideInInspector]
     public Vector2 PieceStartPosition;
+    [SerializeField]
+    private SpriteRenderer _mainSprite;
+    [SerializeField]
+    private SpriteRenderer _halfScaleSprite;
     public void RecognizePath(int amount)
     {
         if (this.transform.position.y < 0) this.transform.position = new Vector3(0, 0, 0);
@@ -39,7 +43,6 @@ public class Piece : MonoBehaviour
            
         }
         else Dice.SetLock(false);
-        //ScaleSimplePosPiece();
         Board.Instance.WinOrLoose();
         Board.Instance.SwitchTurn();
         
@@ -58,7 +61,6 @@ public class Piece : MonoBehaviour
             
         }
         Dice.SetLock(false);
-        //ScaleSimplePosPiece();
 
     }
     IEnumerator PlaneAction() 
@@ -85,7 +87,6 @@ public class Piece : MonoBehaviour
         var vec2 = emptySpaces[Random.Range(0, emptySpaces.Count - 1)];
         this.transform.position = new Vector2(vec2.x, vec2.y);
         Dice.SetLock(false);
-        //ScaleSimplePosPiece();
     }
     Vector2 MoveToward(Vector2 currentPos, int moveAmount) 
     {
@@ -172,38 +173,31 @@ public class Piece : MonoBehaviour
         }
         return new Vector2(i,j);
     }
-    //void ScaleSimplePosPiece()
-    //{
-    //    Debug.Log("call");
-    //    int i = 0;
-    //    while (i < Board.Instance.Pieces.Length)
-    //    {
 
-    //        if (this.transform.position == Board.Instance.Pieces[i].transform.position && Board.Instance.Pieces[i].GetInstanceID() != this.GetInstanceID())
-    //        {
-    //            Debug.Log("if");
-    //            this.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-    //            Board.Instance.Pieces[i].transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
-    //            if (i == 1) Board.Instance.Pieces[i].transform.position = new Vector3(Board.Instance.Pieces[i].transform.position.x+0.5f, Board.Instance.Pieces[i].transform.position.y + 0.5f, 0);
-    //            if (i == 2) Board.Instance.Pieces[i].transform.position = new Vector3(Board.Instance.Pieces[i].transform.position.x + 0.5f, Board.Instance.Pieces[i].transform.position.y, 0);
-    //            if (i == 3) Board.Instance.Pieces[i].transform.position = new Vector3(Board.Instance.Pieces[i].transform.position.x , Board.Instance.Pieces[i].transform.position.y + 0.5f, 0);
-    //        }
-    //        i++;
-    //    }
-    //}
-
-
-
-
-
-    //int GetStep(Vector2 currentPos)
-    //{
-    //    int ret = (int)currentPos.y * Board.LENGTH;
-
-    //    if (currentPos.y % 2 == 0) ret += (int)currentPos.x + 1;
-
-    //    if (currentPos.y % 2 != 0) ret += Board.LENGTH - (int)currentPos.x;
-
-    //    return ret;
-    //}
+    public void SetScaleNormal() 
+    {
+        _mainSprite.enabled = true;
+        _halfScaleSprite.enabled = false;
+    }
+    public void SetScaleHalf(int idx) 
+    {
+        _mainSprite.enabled = false;
+        _halfScaleSprite.enabled = true;
+        switch (idx)
+        {
+            case 0:
+                _halfScaleSprite.transform.localPosition = new Vector2(0, 0);
+                break;
+            case 1:
+                _halfScaleSprite.transform.localPosition = new Vector2(.5f, .5f);
+                break;
+            case 2:
+                _halfScaleSprite.transform.localPosition = new Vector2(.5f, 0);
+                break;
+            case 3:
+                _halfScaleSprite.transform.localPosition = new Vector2(0, .5f);
+                break;
+        }
+    }
+    
 }
