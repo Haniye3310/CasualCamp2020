@@ -219,7 +219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &85987400
 RectTransform:
   m_ObjectHideFlags: 0
@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa52c7221dc2254b9f75483157ce777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickRandomly: 0
+  _pickRandomly: 1
   _tilePrefab: {fileID: 8085774649770262487, guid: d64fb1531df831a41a39b5c8889d4bd6,
     type: 3}
   _piecesPrefab:
