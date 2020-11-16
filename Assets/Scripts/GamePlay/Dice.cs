@@ -8,7 +8,7 @@ public delegate void SwitchTurnAction(int turn);
 public class Dice : MonoBehaviour
 {
     public static int Number;
-    static bool _lock;
+    static bool _lock = false;
     [SerializeField] Animator anim;
     [SerializeField] Sprite[] _diceNumbers;
     [SerializeField] Image _diceImage;
@@ -21,10 +21,7 @@ public class Dice : MonoBehaviour
         if (_instance == null)
             _instance = this;
     }
-    void Start() 
-    {
-        _lock = false;
-    }
+
     public void Dice_OnClick()
     {
         if (!_lock) 
@@ -50,8 +47,10 @@ public class Dice : MonoBehaviour
         if (locked == false)
         {
             Board.Instance.ScalePiecesInSamePos();
-            if (_instance.OnSwitchTurn != null)
+            Board.Instance.SwitchTurn();
+            if (_instance.OnSwitchTurn != null) {
                 _instance.OnSwitchTurn(Board.Instance.Turn);
+            }
         }
     }
 

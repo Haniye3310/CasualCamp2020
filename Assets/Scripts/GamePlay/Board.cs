@@ -6,7 +6,6 @@ using UnityEngine.UI;
 
 public class Board : MonoBehaviour
 {
-
     [SerializeField] bool _pickRandomly = true;
     public const int LENGTH = 10;
     [SerializeField] GameObject _tilePrefab;
@@ -18,6 +17,7 @@ public class Board : MonoBehaviour
     public int Turn;
     public GameObject Panel;
     public Text Text;
+    public event SwitchTurnAction OnGameStart;
     public static Board Instance { get; private set; }
     void Awake() 
     { 
@@ -89,11 +89,14 @@ public class Board : MonoBehaviour
         }
     }
 
-    void PickPiecesRandomly() 
+    void PickPiecesRandomly()
     {
         if(!_pickRandomly)
         {
             Pieces = _piecesPrefab.ToArray();
+            for (int i=0; i < Pieces.Length;i++) {
+                Pieces[i].SetMyTurn(i);
+            }
             return;
         }
 
@@ -105,9 +108,10 @@ public class Board : MonoBehaviour
             _piecesPrefab.RemoveAt(randIdx);
             Pieces[i].PieceStartPosition = new Vector2(i, -1.3f);
             Pieces[i].transform.position = Pieces[i].PieceStartPosition;
-
         }
-
+        if(OnGameStart != null) {
+            OnGameStart(0);
+        }
     }
 
     public void ScalePiecesInSamePos()

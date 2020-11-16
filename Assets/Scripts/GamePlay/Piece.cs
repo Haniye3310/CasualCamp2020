@@ -28,7 +28,6 @@ public class Piece : MonoBehaviour
         else
         {
             Dice.SetLock(false);
-            Board.Instance.SwitchTurn();
         }
     }
     public void Move()
@@ -47,9 +46,8 @@ public class Piece : MonoBehaviour
            
         }
         else Dice.SetLock(false);
+
         Board.Instance.WinOrLoose();
-        Board.Instance.SwitchTurn();
-        
     }
     IEnumerator MineAction() 
     {
