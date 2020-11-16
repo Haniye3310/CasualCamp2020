@@ -11,6 +11,11 @@ public class Piece : MonoBehaviour
     private SpriteRenderer _mainSprite;
     [SerializeField]
     private SpriteRenderer _halfScaleSprite;
+    public int MyTurn { get; private set; }
+    public void SetMyTurn(int turn) 
+    {
+        MyTurn = turn;
+    }
     public void RecognizePath(int amount)
     {
         if (this.transform.position.y < 0) this.transform.position = new Vector3(0, 0, 0);
@@ -25,7 +30,6 @@ public class Piece : MonoBehaviour
             Dice.SetLock(false);
             Board.Instance.SwitchTurn();
         }
-
     }
     public void Move()
     {
@@ -175,7 +179,6 @@ public class Piece : MonoBehaviour
         }
         return new Vector2(i,j);
     }
-
     public void SetScaleNormal() 
     {
         _mainSprite.enabled = true;

@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+
 public class Board : MonoBehaviour
 {
+
     [SerializeField] bool _pickRandomly = true;
     public const int LENGTH = 10;
     [SerializeField] GameObject _tilePrefab;
@@ -18,9 +20,9 @@ public class Board : MonoBehaviour
     public Text Text;
     public static Board Instance { get; private set; }
     void Awake() 
-    { if(Instance == null)
+    { 
+        if(Instance == null)
             Instance = this;
-
     }
     void Start() 
     {
@@ -99,6 +101,7 @@ public class Board : MonoBehaviour
         {
             int randIdx=(int)Mathf.Floor(Random.Range(0.0f, _piecesPrefab.Count- 0.00001f));
             Pieces[i] = _piecesPrefab[randIdx];
+            Pieces[i].SetMyTurn(i);
             _piecesPrefab.RemoveAt(randIdx);
             Pieces[i].PieceStartPosition = new Vector2(i, -1.3f);
             Pieces[i].transform.position = Pieces[i].PieceStartPosition;

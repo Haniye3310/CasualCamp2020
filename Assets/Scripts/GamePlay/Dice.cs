@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+public delegate void OnPathRecognized(int turn);
+public delegate void SwitchTurnAction(int turn);
 public class Dice : MonoBehaviour
 {
-    public static int  Number;
+    public static int Number;
     static bool _lock;
     [SerializeField] Animator anim;
     [SerializeField] Sprite[] _diceNumbers;
     [SerializeField] Image _diceImage;
+    public event OnPathRecognized OnPathRecognized;
+    public event SwitchTurnAction OnSwitchTurn;
+    private static Dice _instance;
+
+    void Awake()
+    {
+        if (_instance == null)
+            _instance = this;
+    }
     void Start() 
     {
         _lock = false;
     }
     public void Dice_OnClick()
     {
-        var piecePos = Board.Instance.Pieces[Board.Instance.Turn].transform.position;
         if (!_lock) 
         {
             Number =(int) Mathf.Floor(Random.Range(1.0f, 7.0f));
@@ -38,7 +48,11 @@ public class Dice : MonoBehaviour
         _lock = locked;
 
         if (locked == false)
+        {
             Board.Instance.ScalePiecesInSamePos();
+            if (_instance.OnSwitchTurn != null)
+                _instance.OnSwitchTurn(Board.Instance.Turn);
+        }
     }
 
     IEnumerator SetDiceFixedImage()
@@ -48,6 +62,7 @@ public class Dice : MonoBehaviour
         anim.enabled = false;
         _diceImage.sprite = _diceNumbers[Number - 1];
         Board.Instance.Pieces[Board.Instance.Turn].RecognizePath(Number);
-
+        if (OnPathRecognized != null)
+            OnPathRecognized(Board.Instance.Turn);
     }
 }
