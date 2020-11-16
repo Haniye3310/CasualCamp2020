@@ -14,11 +14,6 @@ public class Bot : MonoBehaviour
         _dice.OnPathRecognized      += MovePiece;
         Board.Instance.OnGameStart  += RollDiceOnFirstTurn;
     }
-
-    void Start() 
-    {
-    }
-
     void RollDice(int turn) 
     {
         if (turn != _botPiece.MyTurn) return;

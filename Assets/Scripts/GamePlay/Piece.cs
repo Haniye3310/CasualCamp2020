@@ -11,6 +11,10 @@ public class Piece : MonoBehaviour
     private SpriteRenderer _mainSprite;
     [SerializeField]
     private SpriteRenderer _halfScaleSprite;
+    [SerializeField]
+    AudioSource _mineClip;
+    [SerializeField]
+    AudioSource _planeClip;
     public int MyTurn { get; private set; }
     public void SetMyTurn(int turn) 
     {
@@ -57,7 +61,9 @@ public class Piece : MonoBehaviour
             
             this.transform.GetChild(0).gameObject.SetActive(true);
             Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(true);
+            _mineClip.Play();
             yield return new WaitForSeconds(1.3f);
+            _mineClip.Stop();
             this.transform.GetChild(0).gameObject.SetActive(false);
             Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(false);
             if (MoveToward(this.transform.position, -4).y < 0) { this.transform.position = this.PieceStartPosition;break; }
@@ -70,7 +76,9 @@ public class Piece : MonoBehaviour
     IEnumerator PlaneAction() 
     {
         this.transform.GetChild(1).gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.7f);
+        _planeClip.Play();
+        yield return new WaitForSeconds(1.3f);
+        _planeClip.Stop();
         this.transform.GetChild(1).gameObject.SetActive(false);
         Vector2Int airPlanePos = new Vector2Int((int)_goal.transform.position.x, (int)_goal.transform.position.y);
         List<Vector2Int> emptySpaces = new List<Vector2Int>();
