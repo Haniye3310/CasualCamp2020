@@ -403,7 +403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa52c7221dc2254b9f75483157ce777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickRandomly: 1
+  _pickRandomly: 0
   _tilePrefab: {fileID: 8085774649770262487, guid: d64fb1531df831a41a39b5c8889d4bd6,
     type: 3}
   _piecesPrefab:
@@ -1443,6 +1443,24 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1784840323 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1032304400173106779, guid: 71e9583ca069ebe4fba53df896ea4e99,
+    type: 3}
+  m_PrefabInstance: {fileID: 2098998301}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1784840324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1784840323}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c3636df6ab60b47add01db9fd34290, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1965206052
 GameObject:
   m_ObjectHideFlags: 0
@@ -1645,12 +1663,12 @@ PrefabInstance:
     - target: {fileID: 1032304400173106777, guid: 71e9583ca069ebe4fba53df896ea4e99,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 1032304400173106777, guid: 71e9583ca069ebe4fba53df896ea4e99,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1032304400173106777, guid: 71e9583ca069ebe4fba53df896ea4e99,
         type: 3}
@@ -1702,7 +1720,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrenchSoldier
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 1521022475, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
 --- !u!114 &2098998303 stripped
 MonoBehaviour:
@@ -1710,7 +1729,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2098998301}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 1784840323}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7a054291a77a1941bdaefebcb3ed2d8, type: 3}
@@ -1879,7 +1898,7 @@ PrefabInstance:
     - target: {fileID: 1329504762184736000, guid: 173f5606f2b20314d955c97f0250468e,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 4
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1329504762184736000, guid: 173f5606f2b20314d955c97f0250468e,
         type: 3}

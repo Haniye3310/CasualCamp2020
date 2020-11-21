@@ -23,35 +23,32 @@ public class Piece : MonoBehaviour
     public void RecognizePath(int amount)
     {
         if (this.transform.position.y < 0) this.transform.position = new Vector3(0, 0, 0);
-        if (MoveToward(this.transform.position, amount).y < Board.LENGTH)
-        {
-            var nextPos = MoveToward(this.transform.position, amount);
-            Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y].HighLight();
-            _goal = Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y];
-        }
-        else
-        {
-            Dice.SetLock(false);
-        }
+        var nextPos = MoveToward(this.transform.position, amount);
+        Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y].HighLight();
+        _goal = Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y];
     }
     public void Move()
     {
 
         this.transform.position = _goal.transform.position;
         _goal.OffLight();
-        if (_goal.transform.GetChild(2).gameObject.activeInHierarchy) 
+        if (_goal.transform.GetChild(2).gameObject.activeInHierarchy)
         {
-            StartCoroutine( MineAction());
-            
+            StartCoroutine(MineAction());
+
         }
         else if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
         {
             StartCoroutine(PlaneAction());
-           
-        }
-        else Dice.SetLock(false);
 
-        Board.Instance.WinOrLoose();
+        }
+        else
+        {
+            Board.Instance.WinOrLoose();
+            Dice.SetLock(false);
+
+            
+        }
     }
     IEnumerator MineAction() 
     {
@@ -100,7 +97,7 @@ public class Piece : MonoBehaviour
         this.transform.position = new Vector2(vec2.x, vec2.y);
         Dice.SetLock(false);
     }
-    Vector2 MoveToward(Vector2 currentPos, int moveAmount) 
+    public Vector2 MoveToward(Vector2 currentPos, int moveAmount) 
     {
         int counter = 0;
         int i = (int)currentPos.x;

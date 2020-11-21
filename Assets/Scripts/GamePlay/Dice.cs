@@ -8,7 +8,7 @@ public delegate void SwitchTurnAction(int turn);
 public class Dice : MonoBehaviour
 {
     public static int Number;
-    static bool _lock = false;
+    public static bool _lock = false;
     [SerializeField] Animator anim;
     [SerializeField] Sprite[] _diceNumbers;
     [SerializeField] Image _diceImage;
@@ -60,8 +60,13 @@ public class Dice : MonoBehaviour
         yield return new WaitForSeconds(anim.GetCurrentAnimatorStateInfo(0).length);
         anim.enabled = false;
         _diceImage.sprite = _diceNumbers[Number - 1];
-        Board.Instance.Pieces[Board.Instance.Turn].RecognizePath(Number);
-        if (OnPathRecognized != null)
-            OnPathRecognized(Board.Instance.Turn);
+        if (Board.Instance.Pieces[Board.Instance.Turn].MoveToward(Board.Instance.Pieces[Board.Instance.Turn].transform.position, Number).y < Board.LENGTH)
+        {
+            Board.Instance.Pieces[Board.Instance.Turn].RecognizePath(Number);
+            if (OnPathRecognized != null)
+                OnPathRecognized(Board.Instance.Turn);
+        }
+        else SetLock(false);
+       
     }
 }

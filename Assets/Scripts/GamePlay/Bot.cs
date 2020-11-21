@@ -6,13 +6,15 @@ public class Bot : MonoBehaviour
 {
     Piece _botPiece;
     Dice _dice;
+    Board board;
     void Awake() {
         _botPiece =gameObject.GetComponent<Piece>();
         _dice = FindObjectOfType<Dice>();
+        board = FindObjectOfType<Board>();
 
         _dice.OnSwitchTurn          += RollDice;
         _dice.OnPathRecognized      += MovePiece;
-        Board.Instance.OnGameStart  += RollDiceOnFirstTurn;
+        board.OnGameStart  += RollDiceOnFirstTurn;
     }
     void RollDice(int turn) 
     {

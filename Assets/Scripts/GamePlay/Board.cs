@@ -86,6 +86,7 @@ public class Board : MonoBehaviour
         {
             Panel.SetActive(true);
             Text.text = ""+Pieces[Turn].name+" Win!";
+            Turn = -2;
         }
     }
 
