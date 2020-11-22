@@ -15,22 +15,41 @@ public class Dice : MonoBehaviour
     public event OnPathRecognized OnPathRecognized;
     public event SwitchTurnAction OnSwitchTurn;
     private static Dice _instance;
+#if DEBUG_MODE
+    private DEBUG_DiceNumber DEBUG_diceNumber;
+#endif
 
     void Awake()
     {
         if (_instance == null)
             _instance = this;
+#if DEBUG_MODE
+        DEBUG_diceNumber = gameObject.AddComponent<DEBUG_DiceNumber>();
+        DEBUG_diceNumber.OnNumberSet += DEBUG_DiceOnClick;
+#endif
     }
 
     public void Dice_OnClick()
     {
         if (!_lock) 
         {
-            Number =(int) Mathf.Floor(Random.Range(1.0f, 7.0f));
+            Number = (int)Mathf.Floor(Random.Range(1.0f, 7.0f));
             StartCoroutine(SetDiceFixedImage());
             SetLock(true);
         }
     }
+
+#if DEBUG_MODE
+    public void DEBUG_DiceOnClick(int num)
+    {
+        if (!_lock)
+        {
+            Number = num;
+            StartCoroutine(SetDiceFixedImage());
+            SetLock(true);
+        }
+    }
+#endif
 
     public static void SetLock(bool locked)
     {
@@ -67,6 +86,6 @@ public class Dice : MonoBehaviour
                 OnPathRecognized(Board.Instance.Turn);
         }
         else SetLock(false);
-       
     }
+
 }
