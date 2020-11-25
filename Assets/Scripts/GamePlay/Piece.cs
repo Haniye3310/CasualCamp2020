@@ -29,26 +29,9 @@ public class Piece : MonoBehaviour
     }
     public void Move()
     {
+        StartCoroutine(MoveCoroutine());
 
-        this.transform.position = _goal.transform.position;
-        _goal.OffLight();
-        if (_goal.transform.GetChild(2).gameObject.activeInHierarchy)
-        {
-            StartCoroutine(MineAction());
-
-        }
-        else if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
-        {
-            StartCoroutine(PlaneAction());
-
-        }
-        else
-        {
-            Board.Instance.WinOrLoose();
-            Dice.SetLock(false);
-
-            
-        }
+        
     }
     IEnumerator MineAction() 
     {
@@ -205,6 +188,34 @@ public class Piece : MonoBehaviour
             case 3:
                 _halfScaleSprite.transform.localPosition = new Vector2(0, .5f);
                 break;
+        }
+    }
+
+    IEnumerator MoveCoroutine() 
+    {
+        while (Vector2.Distance(transform.position,_goal.transform.position)>0.01f) 
+        {
+            transform.position = Vector2.MoveTowards(transform.position,_goal.transform.position,5*Time.deltaTime);
+            yield return null;
+        }
+        transform.position = _goal.transform.position;
+        _goal.OffLight();
+        if (_goal.transform.GetChild(2).gameObject.activeInHierarchy)
+        {
+            StartCoroutine(MineAction());
+
+        }
+        else if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
+        {
+            StartCoroutine(PlaneAction());
+
+        }
+        else
+        {
+            Board.Instance.WinOrLoose();
+            Dice.SetLock(false);
+
+
         }
     }
     
