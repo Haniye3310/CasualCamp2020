@@ -100,6 +100,7 @@ public class Board : MonoBehaviour
             }
             return;
         }
+        int n = 1;
 
         for (int i=0; i < Pieces.Length;i++)
         {
@@ -107,8 +108,9 @@ public class Board : MonoBehaviour
             Pieces[i] = _piecesPrefab[randIdx];
             Pieces[i].SetMyTurn(i);
             _piecesPrefab.RemoveAt(randIdx);
-            Pieces[i].PieceStartPosition = new Vector2(i, -1.3f);
+            Pieces[i].PieceStartPosition = new Vector2(i+n, -2f);
             Pieces[i].transform.position = Pieces[i].PieceStartPosition;
+            if(i ==0)n++;
         }
         if(OnGameStart != null) {
             OnGameStart(0);
