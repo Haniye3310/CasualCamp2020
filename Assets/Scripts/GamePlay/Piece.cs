@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class Piece : MonoBehaviour
 {
@@ -15,6 +16,9 @@ public class Piece : MonoBehaviour
     AudioSource _mineClip;
     [SerializeField]
     AudioSource _planeClip;
+    [SerializeField]float _shakeDuration;
+    [SerializeField]float _flyDuration;
+    [SerializeField] Ease _ease;
     public int MyTurn { get; private set; }
     public void SetMyTurn(int turn) 
     {
@@ -42,7 +46,8 @@ public class Piece : MonoBehaviour
             this.transform.GetChild(0).gameObject.SetActive(true);
             Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(true);
             _mineClip.Play();
-            yield return new WaitForSeconds(1.3f);
+            transform.DOShakeRotation(_shakeDuration);
+            yield return new WaitForSeconds(_shakeDuration);
             _mineClip.Stop();
             this.transform.GetChild(0).gameObject.SetActive(false);
             Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(false);
@@ -59,7 +64,7 @@ public class Piece : MonoBehaviour
         _planeClip.Play();
         yield return new WaitForSeconds(1.3f);
         _planeClip.Stop();
-        this.transform.GetChild(1).gameObject.SetActive(false);
+        
         Vector2Int airPlanePos = new Vector2Int((int)_goal.transform.position.x, (int)_goal.transform.position.y);
         List<Vector2Int> emptySpaces = new List<Vector2Int>();
         int loopEnd = 0;
@@ -77,7 +82,10 @@ public class Piece : MonoBehaviour
             }
         }
         var vec2 = emptySpaces[Random.Range(0, emptySpaces.Count - 1)];
-        this.transform.position = new Vector2(vec2.x, vec2.y);
+        transform.DOMove(new Vector3(vec2.x,vec2.y,0), _flyDuration).SetEase(_ease).Play();
+        yield return new WaitForSeconds(_flyDuration);
+        this.transform.GetChild(1).gameObject.SetActive(false);
+        //this.transform.position = new Vector2(vec2.x, vec2.y);
         Dice.SetLock(false);
     }
     public Vector2 MoveToward(Vector2 currentPos, int moveAmount) 

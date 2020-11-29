@@ -18,6 +18,9 @@ public class Board : MonoBehaviour
     public GameObject Panel;
     public Text Text;
     public event SwitchTurnAction OnGameStart;
+    [SerializeField]AudioClip _firstBG;
+    [SerializeField]AudioClip _secondBG;
+    AudioSource _audioSource;
     public static Board Instance { get; private set; }
     void Awake() 
     { 
@@ -26,6 +29,8 @@ public class Board : MonoBehaviour
     }
     void Start() 
     {
+        _audioSource = GetComponent<AudioSource>();
+        StartCoroutine(PlayBGSound());
         Tiles = new Tile[LENGTH, LENGTH];
         ArrangeTiles();
         ArrangeMineOrPlane();
@@ -134,6 +139,18 @@ public class Board : MonoBehaviour
             }
             if(!setHalf)
                 Pieces[i].SetScaleNormal();
+        }
+    }
+    IEnumerator PlayBGSound() 
+    {
+        while (true) 
+        {
+            _audioSource.clip = _firstBG;
+            _audioSource.Play();
+            yield return new WaitForSeconds(_audioSource.clip.length);
+            _audioSource.clip = _secondBG;
+            _audioSource.Play();
+            yield return new WaitForSeconds(_audioSource.clip.length);
         }
     }
 }
