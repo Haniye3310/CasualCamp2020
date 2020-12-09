@@ -52,22 +52,28 @@ public class Board : MonoBehaviour
     }
     void ArrangeMineOrPlane() 
     {
-
+        //-1 = empty
+        //1 = plane
+        //2 = mine
+        //3 = sangar
+        //5 = boom
+        //6 = machine
+        //7 = Tench
         Design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, WIDTH] {
-            { 0 , -1 , 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 },
-            { 0 , -1 , 2 , 2 , 2 , -1 , 0 , 0 , -1 , 0 },
-            { -1 , 0 , 0 , -1 , 2 , 2 , -1 , 0 , 1 , 0 },
-            { 0 , -1 , 2 , 2 , -1 , 0 , 0 , -1 , 0 , 0 },
-            { 0 , 1 , 2 , 2 , -1 , -1 , 2 , 2 , 2 , 2 },
-            { 0 , -1 , 0 , 0 , 1 , 0 , 0 , -1 , 0 , -1},
-            { -1 , 1 , 2 , 2 , 2 , 2 , -1 , 0 , 0 , 1 },
-            { 2 , 2 , 2 , -1 , 1 , 2 , 2 , 2 , 2 , -1 },
-            { 0 , 0 , 0 , -1 , 2 , 2 , 2 , 2 , -1 , 0 },
-            { 2 , 2 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 },
-            { -1 , 1 , 2 , 2 , 2 , 2 , -1 , 0 , 0 , 1 },
-            { 2 , 2 , 2 , -1 , 1 , 2 , 2 , 2 , 2 , -1 },
-            { 0 , 0 , 0 , -1 , 2 , 2 , 2 , 2 , -1 , 0 },
-            { 2 , 2 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 },
+            { -1 , 5 , -1 , -1 , -1 , -1 , -1 , 2 , -1 , 7 },
+            { -1 , -1 , -1 , 2 , 3 , 3 , 3 , 3 , 2 , -1 },
+            { 3 , 3 , 2 , -1 , 6 , 2 , -1 , 6 , -1 , -1 },
+            { -1 , -1 , 7 , 2 , 3 , 3 , 2 , -1 , 1 , -1 },
+            { 2 , -1 , 2 , -1 , 3 , 3 , 3 , 3 , 2 , -1 },
+            { 2 , -1 , 6 , 3 , 3 , 3 , 2 , -1 , -1 , 7},
+            { 3 , 3 , 3 , 2 , 1 , -1 , 2 , -1 , 6 , -1 },
+            { -1 , -1 , -1 , 5 , -1 , -1 , -1 , 7 , -1 , -1 },
+            { -1 , -1 , -1 , 5 , -1 , -1 , -1 , 7 , -1 , -1 },
+            { -1 , 1 , -1 , 2 , 3 , 3 , 3 , 6 , -1 , 2 },
+            { -1 , -1 , 3 , 3 , 3 , 2 , -1 , 1 , -1 , 2 },
+            { 7 , -1 , 3 , 3 , -1 , -1 , -1 , -1 , 6 , -1 },
+            { -1 , -1 , 2 , -1 , 3 , 3 , 3 , 3 , 2 , -1 },
+            { -1 , 3 , 3 , 3 , -1 , 6 , -1 , 2 , -1 , 1 },
         });
 
         for (int i = 0; i < WIDTH; i++)
@@ -76,11 +82,17 @@ public class Board : MonoBehaviour
             {
                 if (Board.Instance.Design[i, j] == 1)
                     Tiles[i, j].transform.GetChild(1).gameObject.SetActive(true);
-                else if (Board.Instance.Design[i, j] == -1)
-                    Tiles[i, j].transform.GetChild(2).gameObject.SetActive(true);
                 else if (Board.Instance.Design[i, j] == 2)
+                    Tiles[i, j].transform.GetChild(2).gameObject.SetActive(true);
+                else if (Board.Instance.Design[i, j] == 3)
                     Tiles[i, j].transform.GetChild(3).gameObject.SetActive(true);
-                else if (Board.Instance.Design[i, j] == 0)
+                else if (Board.Instance.Design[i, j] == 5)
+                    Tiles[i, j].transform.GetChild(5).gameObject.SetActive(true);
+                else if (Board.Instance.Design[i, j] == 6)
+                    Tiles[i, j].transform.GetChild(6).gameObject.SetActive(true);
+                else if (Board.Instance.Design[i, j] == 7)
+                    Tiles[i, j].transform.GetChild(7).gameObject.SetActive(true);
+                else if (Board.Instance.Design[i, j] == -1)
                     continue;
             }
         }

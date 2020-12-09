@@ -77,7 +77,7 @@ public class Piece : MonoBehaviour
         {
             for (int j = airPlanePos.y + 1; j <= loopEnd; j++)
             {
-                if (Board.Instance.Design[i, j] == 0)
+                if (Board.Instance.Design[i, j] == -1)
                 {
                     emptySpaces.Add(new Vector2Int(i, j));
                 }
