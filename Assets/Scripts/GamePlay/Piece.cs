@@ -19,6 +19,7 @@ public class Piece : MonoBehaviour
     [SerializeField]float _shakeDuration;
     [SerializeField]float _flyDuration;
     [SerializeField] Ease _ease;
+    [SerializeField] GameObject _rejectTurnBtn;
     public int MyTurn { get; private set; }
     public void SetMyTurn(int turn) 
     {
@@ -30,6 +31,7 @@ public class Piece : MonoBehaviour
         var nextPos = MoveToward(this.transform.position, amount);
         Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y].HighLight();
         _goal = Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y];
+        if(Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(3).gameObject.activeInHierarchy) { _rejectTurnBtn.SetActive(true); }
     }
     public void Move()
     {
@@ -71,7 +73,7 @@ public class Piece : MonoBehaviour
         if (airPlanePos.y < 3) loopEnd = airPlanePos.y + 3;
         else if (airPlanePos.y >= 3 && airPlanePos.y < 6) loopEnd = airPlanePos.y + 2;
         else if (airPlanePos.y >= 6 && airPlanePos.y < 9) loopEnd = airPlanePos.y + 1;
-        for (int i = 0; i < Board.LENGTH; i++)
+        for (int i = 0; i < Board.WIDTH; i++)
         {
             for (int j = airPlanePos.y + 1; j <= loopEnd; j++)
             {
@@ -97,12 +99,12 @@ public class Piece : MonoBehaviour
         {
             if(j %2 == 0) 
             {
-                while (counter < moveAmount && i != Board.LENGTH)
+                while (counter < moveAmount && i != Board.WIDTH)
                 {
                     i++;
                     counter++;
                 }
-                if (i == Board.LENGTH)
+                if (i == Board.WIDTH)
                 {
                     i--;
                     j++;
@@ -124,7 +126,7 @@ public class Piece : MonoBehaviour
                 {
                     i++;
                     j++;
-                    while (i != Board.LENGTH && counter < moveAmount)
+                    while (i != Board.WIDTH && counter < moveAmount)
                     {
                         i++;
                         counter++;
@@ -145,7 +147,7 @@ public class Piece : MonoBehaviour
                 {
                     i++;
                     j--;
-                    while (i != Board.LENGTH && counter < Mathf.Abs(moveAmount))
+                    while (i != Board.WIDTH && counter < Mathf.Abs(moveAmount))
                     {
                         i++;
                         counter++;
@@ -154,12 +156,12 @@ public class Piece : MonoBehaviour
             }
             if (j % 2 != 0)
             {
-                while (counter < Mathf.Abs(moveAmount) && i != Board.LENGTH)
+                while (counter < Mathf.Abs(moveAmount) && i != Board.WIDTH)
                 {
                     i++;
                     counter++;
                 }
-                if (i == Board.LENGTH)
+                if (i == Board.WIDTH)
                 {
                     i--;
                     j--;
@@ -201,6 +203,7 @@ public class Piece : MonoBehaviour
 
     IEnumerator MoveCoroutine() 
     {
+        if(_rejectTurnBtn.activeInHierarchy) _rejectTurnBtn.SetActive(false);
         while (Vector2.Distance(transform.position,_goal.transform.position)>0.01f) 
         {
             transform.position = Vector2.MoveTowards(transform.position,_goal.transform.position,5*Time.deltaTime);
@@ -225,6 +228,22 @@ public class Piece : MonoBehaviour
 
 
         }
+        
     }
-    
+    public void RejectTurnBtn_OnClick()
+    {
+        for(int i = 0; i < Board.WIDTH; i++) 
+        {
+            for (int j = 0; j < Board.LENGTH; j++) 
+            {
+                if (Board.Instance.Tiles[i, j].IsHighLight()) { Board.Instance.Tiles[i, j].OffLight(); }
+            }
+        }
+            
+        Dice.SetLock(false);
+        
+    }
+
+
+
 }

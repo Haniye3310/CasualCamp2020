@@ -343,6 +343,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3352b28b167cea147999db5ded068e12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _rejectTurnBtn: {fileID: 0}
 --- !u!65 &-212999239658454911
 BoxCollider:
   m_ObjectHideFlags: 0

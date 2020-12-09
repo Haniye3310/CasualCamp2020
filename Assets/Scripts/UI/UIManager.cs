@@ -48,4 +48,6 @@ public class UIManager : MonoBehaviour
         Settingpage.SetActive(false);
         Startpage.SetActive(false);
     }
+
+
 }

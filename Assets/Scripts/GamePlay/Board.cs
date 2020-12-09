@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class Board : MonoBehaviour
 {
     [SerializeField] bool _pickRandomly = true;
-    public const int LENGTH = 10;
+    public const int LENGTH = 14;
+    public const int WIDTH = 10;
     [SerializeField] GameObject _tilePrefab;
     public Tile[,] Tiles;
     [SerializeField] List<Piece> _piecesPrefab = new List<Piece>();
@@ -31,14 +32,14 @@ public class Board : MonoBehaviour
     {
         _audioSource = GetComponent<AudioSource>();
         StartCoroutine(PlayBGSound());
-        Tiles = new Tile[LENGTH, LENGTH];
+        Tiles = new Tile[WIDTH, LENGTH];
         ArrangeTiles();
         ArrangeMineOrPlane();
         PickPiecesRandomly();
     }
     void ArrangeTiles() 
     { 
-        for(int i = 0; i < LENGTH; i++) 
+        for(int i = 0; i < WIDTH; i++) 
         {
             for (int j = 0; j < LENGTH; j++) 
             {
@@ -52,7 +53,7 @@ public class Board : MonoBehaviour
     void ArrangeMineOrPlane() 
     {
 
-        Design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, LENGTH] {
+        Design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, WIDTH] {
             { 0 , -1 , 0 , -1 , 0 , 0 , 0 , -1 , 0 , 0 },
             { 0 , -1 , 2 , 2 , 2 , -1 , 0 , 0 , -1 , 0 },
             { -1 , 0 , 0 , -1 , 2 , 2 , -1 , 0 , 1 , 0 },
@@ -62,10 +63,14 @@ public class Board : MonoBehaviour
             { -1 , 1 , 2 , 2 , 2 , 2 , -1 , 0 , 0 , 1 },
             { 2 , 2 , 2 , -1 , 1 , 2 , 2 , 2 , 2 , -1 },
             { 0 , 0 , 0 , -1 , 2 , 2 , 2 , 2 , -1 , 0 },
-            { 2 , 2 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 }
+            { 2 , 2 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 },
+            { -1 , 1 , 2 , 2 , 2 , 2 , -1 , 0 , 0 , 1 },
+            { 2 , 2 , 2 , -1 , 1 , 2 , 2 , 2 , 2 , -1 },
+            { 0 , 0 , 0 , -1 , 2 , 2 , 2 , 2 , -1 , 0 },
+            { 2 , 2 , -1 , 0 , -1 , 0 , 1 , 0 , 0 , -1 },
         });
 
-        for (int i = 0; i < LENGTH; i++)
+        for (int i = 0; i < WIDTH; i++)
         {
             for (int j = 0; j < LENGTH; j++)
             {
