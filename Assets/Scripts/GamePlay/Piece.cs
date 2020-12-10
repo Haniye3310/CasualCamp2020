@@ -132,6 +132,16 @@ public class Piece : MonoBehaviour
         //this.transform.position = new Vector2(vec2.x, vec2.y);
         Dice.SetLock(false);
     }
+    IEnumerator MachineAction() 
+    {
+        while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(6).gameObject.activeInHierarchy)
+        {
+            yield return new WaitForSeconds(0.3f);
+            if (MoveToward(this.transform.position, 8).y < 0) { this.transform.position = this.PieceStartPosition; break; }
+            this.transform.position = MoveToward(this.transform.position, 8);
+        }
+        Dice.SetLock(false);
+    }
     public Vector2 MoveToward(Vector2 currentPos, int moveAmount) 
     {
         int counter = 0;
@@ -242,7 +252,6 @@ public class Piece : MonoBehaviour
                 break;
         }
     }
-
     IEnumerator MoveCoroutine() 
     {
         if(_rejectTurnBtn.activeInHierarchy) _rejectTurnBtn.SetActive(false);
@@ -271,6 +280,11 @@ public class Piece : MonoBehaviour
         else if (_goal.transform.GetChild(5).gameObject.activeInHierarchy)
         {
             StartCoroutine(BombAction());
+
+        }
+        else if (_goal.transform.GetChild(6).gameObject.activeInHierarchy)
+        {
+            StartCoroutine(MachineAction());
 
         }
         else

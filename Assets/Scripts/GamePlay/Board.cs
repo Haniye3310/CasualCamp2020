@@ -111,7 +111,6 @@ public class Board : MonoBehaviour
             Turn = -2;
         }
     }
-
     void PickPiecesRandomly()
     {
         if(!_pickRandomly)
@@ -138,7 +137,6 @@ public class Board : MonoBehaviour
             OnGameStart(0);
         }
     }
-
     public void ScalePiecesInSamePos()
     {
         for (int i = 0; i < Pieces.Length; i++)
