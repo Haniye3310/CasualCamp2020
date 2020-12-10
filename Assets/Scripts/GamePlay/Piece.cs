@@ -60,6 +60,48 @@ public class Piece : MonoBehaviour
         Dice.SetLock(false);
 
     }
+    IEnumerator TenchAction()
+    {
+
+        while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(7).gameObject.activeInHierarchy)
+        {
+
+            this.transform.GetChild(0).gameObject.SetActive(true);
+            Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(true);
+            _mineClip.Play();
+            transform.DOShakeRotation(_shakeDuration);
+            yield return new WaitForSeconds(_shakeDuration);
+            _mineClip.Stop();
+            this.transform.GetChild(0).gameObject.SetActive(false);
+            Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(false);
+            if (MoveToward(this.transform.position, -8).y < 0) { this.transform.position = this.PieceStartPosition; break; }
+            this.transform.position = MoveToward(this.transform.position, -8);
+
+        }
+        Dice.SetLock(false);
+
+    }
+    IEnumerator BombAction()
+    {
+
+        while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(5).gameObject.activeInHierarchy)
+        {
+
+            this.transform.GetChild(0).gameObject.SetActive(true);
+            Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(true);
+            _mineClip.Play();
+            transform.DOShakeRotation(_shakeDuration);
+            yield return new WaitForSeconds(_shakeDuration);
+            _mineClip.Stop();
+            this.transform.GetChild(0).gameObject.SetActive(false);
+            Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(false);
+            if (MoveToward(this.transform.position, -16).y < 0) { this.transform.position = this.PieceStartPosition; break; }
+            this.transform.position = MoveToward(this.transform.position, -16);
+
+        }
+        Dice.SetLock(false);
+
+    }
     IEnumerator PlaneAction() 
     {
         this.transform.GetChild(1).gameObject.SetActive(true);
@@ -219,6 +261,16 @@ public class Piece : MonoBehaviour
         else if (_goal.transform.GetChild(1).gameObject.activeInHierarchy)
         {
             StartCoroutine(PlaneAction());
+
+        }
+        else if (_goal.transform.GetChild(7).gameObject.activeInHierarchy)
+        {
+            StartCoroutine(TenchAction());
+
+        }
+        else if (_goal.transform.GetChild(5).gameObject.activeInHierarchy)
+        {
+            StartCoroutine(BombAction());
 
         }
         else

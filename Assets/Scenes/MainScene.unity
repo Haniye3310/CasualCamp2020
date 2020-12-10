@@ -687,7 +687,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: baa52c7221dc2254b9f75483157ce777, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _pickRandomly: 1
+  _pickRandomly: 0
   _tilePrefab: {fileID: 8085774649770262487, guid: d64fb1531df831a41a39b5c8889d4bd6,
     type: 3}
   _piecesPrefab:
