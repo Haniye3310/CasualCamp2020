@@ -136,9 +136,11 @@ public class Piece : MonoBehaviour
     {
         while (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(6).gameObject.activeInHierarchy)
         {
-            yield return new WaitForSeconds(0.3f);
+            this.transform.GetChild(1).gameObject.SetActive(true);
+            yield return new WaitForSeconds(1.3f);
             if (MoveToward(this.transform.position, 8).y < 0) { this.transform.position = this.PieceStartPosition; break; }
             this.transform.position = MoveToward(this.transform.position, 8);
+            this.transform.GetChild(1).gameObject.SetActive(false);
         }
         Dice.SetLock(false);
     }
