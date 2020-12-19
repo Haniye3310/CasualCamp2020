@@ -5,6 +5,7 @@ using DG.Tweening;
 
 public class Piece : MonoBehaviour
 {
+    public SoldierType SoldierType;
     Tile _goal;
     [HideInInspector]
     public Vector2 PieceStartPosition;

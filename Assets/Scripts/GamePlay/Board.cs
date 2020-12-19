@@ -61,13 +61,13 @@ public class Board : MonoBehaviour
         //7 = Tench
         Design = ArrayUtil.TransformArrayToUnityCoordinate( new int[LENGTH, WIDTH] {
             { -1 , 5 , -1 , -1 , -1 , -1 , -1 , 2 , -1 , 7 },
-            { -1 , -1 , -1 , 2 , 3 , 3 , 3 , 3 , 2 , -1 },
+            { -1 , -1 , 2 , -1 , 3 , 3 , 3 , 3 , 2 , -1 },
             { 3 , 3 , 2 , -1 , 6 , 2 , -1 , 6 , -1 , -1 },
+            { -1 , 1 , -1 , 2 , 3 , 3 , 2 , -1 , 5 , -1 },
             { -1 , -1 , 7 , 2 , 3 , 3 , 2 , -1 , 1 , -1 },
             { 2 , -1 , 2 , -1 , 3 , 3 , 3 , 3 , 2 , -1 },
             { 2 , -1 , 6 , 3 , 3 , 3 , 2 , -1 , -1 , 7},
             { 3 , 3 , 3 , 2 , 1 , -1 , 2 , -1 , 6 , -1 },
-            { -1 , -1 , -1 , 5 , -1 , -1 , -1 , 7 , -1 , -1 },
             { -1 , -1 , -1 , 5 , -1 , -1 , -1 , 7 , -1 , -1 },
             { -1 , 1 , -1 , 2 , 3 , 3 , 3 , 6 , -1 , 2 },
             { -1 , -1 , 3 , 3 , 3 , 2 , -1 , 1 , -1 , 2 },
@@ -133,7 +133,8 @@ public class Board : MonoBehaviour
             Pieces[i].transform.position = Pieces[i].PieceStartPosition;
             if(i ==0)n++;
         }
-        if(OnGameStart != null) {
+        SetBot();
+        if (OnGameStart != null) {
             OnGameStart(0);
         }
     }
@@ -166,6 +167,14 @@ public class Board : MonoBehaviour
             _audioSource.clip = _secondBG;
             _audioSource.Play();
             yield return new WaitForSeconds(_audioSource.clip.length);
+        }
+    }
+    void SetBot() 
+    {
+        for (int i=0;i<Pieces.Length;i++) 
+        {
+            if (Pieces[i].SoldierType == MyApp.Instance.SelectedSoldier) continue;
+            Pieces[i].gameObject.AddComponent<Bot>();
         }
     }
 }

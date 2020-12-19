@@ -6,7 +6,6 @@ public class SoldierIcon : MonoBehaviour
     public SoldierType SoldierType;
 
     [SerializeField] Sprite _selectedIcon;
-
     Image _image;
     Sprite _defaultIcon;
     StartGamePanel _startGamePanel;
@@ -34,4 +33,5 @@ public class SoldierIcon : MonoBehaviour
     public void SetSelected_OnClick() {
         _startGamePanel.SetSelectedSoldier(SoldierType);
     }
+
 }

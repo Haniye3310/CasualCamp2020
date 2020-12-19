@@ -3,6 +3,7 @@ using GameAnalyticsSDK;
 public class MyApp : MonoBehaviour
 {
     public static MyApp Instance { get; private set; }
+    public SoldierType SelectedSoldier = SoldierType.None;
     void Awake() 
     {
         if (Instance == null) 
@@ -11,7 +12,7 @@ public class MyApp : MonoBehaviour
             GameAnalytics.Initialize();
             DontDestroyOnLoad(this);
         }
-        else 
+        else
         {
             if(this != Instance) 
             {

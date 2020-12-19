@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 2098998303}
   - component: {fileID: 1521022476}
   - component: {fileID: 1521022477}
-  - component: {fileID: 1521022475}
   m_Layer: 0
   m_Name: FrenchSoldier
   m_TagString: Untagged
@@ -100,11 +99,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7a054291a77a1941bdaefebcb3ed2d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  SoldierType: 1
   PieceStartPosition: {x: 0, y: 0}
   _mainSprite: {fileID: 1032304400173106776}
   _halfScaleSprite: {fileID: 5587343068003688160}
   _mineClip: {fileID: 1521022477}
   _planeClip: {fileID: 1521022476}
+  _shakeDuration: 1.5
+  _flyDuration: 1
+  _ease: 28
+  _rejectTurnBtn: {fileID: 0}
 --- !u!82 &1521022476
 AudioSource:
   m_ObjectHideFlags: 0
@@ -297,18 +301,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1521022475
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1032304400173106779}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c3636df6ab60b47add01db9fd34290, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1617839403510669127
 GameObject:
   m_ObjectHideFlags: 0

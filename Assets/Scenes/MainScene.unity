@@ -314,7 +314,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 45.7, y: 0}
+  m_AnchoredPosition: {x: -131, y: 0}
   m_SizeDelta: {x: 42.402786, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &121671284
@@ -972,24 +972,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!1 &442416769 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1032304400173106779, guid: 71e9583ca069ebe4fba53df896ea4e99,
-    type: 3}
-  m_PrefabInstance: {fileID: 2098998301}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &442416770
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442416769}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66c3636df6ab60b47add01db9fd34290, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &487919165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1026,7 +1008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2, y: -0.000027657}
+  m_AnchoredPosition: {x: -194, y: -0.000027657}
   m_SizeDelta: {x: 38.874878, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &487919167
@@ -1180,8 +1162,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -108.43, y: -0.0000078678}
-  m_SizeDelta: {x: 180.69534, y: 58.287483}
+  m_AnchoredPosition: {x: -316.2, y: -0.0000078678}
+  m_SizeDelta: {x: 596.2257, y: 58.287483}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &502051670
 MonoBehaviour:
@@ -1456,7 +1438,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -51, y: 0.000023798}
+  m_AnchoredPosition: {x: -255, y: 0.000023798}
   m_SizeDelta: {x: 41.226807, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &689409593
@@ -3821,25 +3803,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 2098998303, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
-      propertyPath: _shakeDuration
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098998303, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
-      propertyPath: _ease
-      value: 28
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098998303, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
-      propertyPath: _flyDuration
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2098998303, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
       propertyPath: _rejectTurnBtn
       value: 
       objectReference: {fileID: 904666905}
-    - target: {fileID: 2098998303, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
-      propertyPath: dice
-      value: 
-      objectReference: {fileID: 2104149318}
     - target: {fileID: 1032304400173106777, guid: 71e9583ca069ebe4fba53df896ea4e99,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -3900,8 +3866,7 @@ PrefabInstance:
       propertyPath: m_Name
       value: FrenchSoldier
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1521022475, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 71e9583ca069ebe4fba53df896ea4e99, type: 3}
 --- !u!114 &2098998303 stripped
 MonoBehaviour:
@@ -3909,7 +3874,7 @@ MonoBehaviour:
     type: 3}
   m_PrefabInstance: {fileID: 2098998301}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 442416769}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c7a054291a77a1941bdaefebcb3ed2d8, type: 3}
