@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
     }
     void OnMouseDown() 
     {
-        if (IsHighLight()) 
+        if (IsHighLight())
         {
             Board.Instance.Pieces[Board.Instance.Turn].Move();
         }

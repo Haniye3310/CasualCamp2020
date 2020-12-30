@@ -17,10 +17,13 @@ public class Piece : MonoBehaviour
     AudioSource _mineClip;
     [SerializeField]
     AudioSource _planeClip;
+    [SerializeField]
+    AudioSource _BombClip;
     [SerializeField]float _shakeDuration;
     [SerializeField]float _flyDuration;
     [SerializeField] Ease _ease;
-    [SerializeField] GameObject _rejectTurnBtn;
+    //Sangar
+    //[SerializeField] GameObject _rejectTurnBtn;
     public int MyTurn { get; private set; }
     public void SetMyTurn(int turn) 
     {
@@ -32,7 +35,8 @@ public class Piece : MonoBehaviour
         var nextPos = MoveToward(this.transform.position, amount);
         Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y].HighLight();
         _goal = Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y];
-        if(Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(3).gameObject.activeInHierarchy) { _rejectTurnBtn.SetActive(true); }
+        //Sangar
+        //if(Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(3).gameObject.activeInHierarchy) { _rejectTurnBtn.SetActive(true); }
     }
     public void Move()
     {
@@ -90,10 +94,10 @@ public class Piece : MonoBehaviour
 
             this.transform.GetChild(0).gameObject.SetActive(true);
             Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(true);
-            _mineClip.Play();
+            _BombClip.Play();
             transform.DOShakeRotation(_shakeDuration);
             yield return new WaitForSeconds(_shakeDuration);
-            _mineClip.Stop();
+            _BombClip.Stop();
             this.transform.GetChild(0).gameObject.SetActive(false);
             Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(4).gameObject.SetActive(false);
             if (MoveToward(this.transform.position, -16).y < 0) { this.transform.position = this.PieceStartPosition; break; }
@@ -257,7 +261,8 @@ public class Piece : MonoBehaviour
     }
     IEnumerator MoveCoroutine() 
     {
-        if(_rejectTurnBtn.activeInHierarchy) _rejectTurnBtn.SetActive(false);
+        //Sangar
+        //if(_rejectTurnBtn.activeInHierarchy) _rejectTurnBtn.SetActive(false);
         while (Vector2.Distance(transform.position,_goal.transform.position)>0.01f) 
         {
             transform.position = Vector2.MoveTowards(transform.position,_goal.transform.position,5*Time.deltaTime);
@@ -299,19 +304,29 @@ public class Piece : MonoBehaviour
         }
         
     }
-    public void RejectTurnBtn_OnClick()
-    {
-        for(int i = 0; i < Board.WIDTH; i++) 
-        {
-            for (int j = 0; j < Board.LENGTH; j++) 
-            {
-                if (Board.Instance.Tiles[i, j].IsHighLight()) { Board.Instance.Tiles[i, j].OffLight(); }
-            }
-        }
+
+    //public void RotateCharacter() 
+    //{
+    //    Debug.Log("pp");
+    //    if(this.transform.position.y %2 != 0) { this.transform.rotation = new Quaternion(0f,180f,0f,0);this.transform.position = new Vector3(this.transform.position.x+1,this.transform.position.y); }
+    //    if (this.transform.position.y % 2 != 0) { this.transform.rotation = new Quaternion(0f, 0f, 0f, 0); this.transform.position = new Vector3(this.transform.position.x - 1, this.transform.position.y); }
+    //}
+
+
+    //Sangar
+    //public void RejectTurnBtn_OnClick()
+    //{
+    //    for(int i = 0; i < Board.WIDTH; i++) 
+    //    {
+    //        for (int j = 0; j < Board.LENGTH; j++) 
+    //        {
+    //            if (Board.Instance.Tiles[i, j].IsHighLight()) { Board.Instance.Tiles[i, j].OffLight(); }
+    //        }
+    //    }
             
-        Dice.SetLock(false);
+    //    Dice.SetLock(false);
         
-    }
+    //}
 
 
 

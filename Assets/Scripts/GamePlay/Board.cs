@@ -21,6 +21,7 @@ public class Board : MonoBehaviour
     public event SwitchTurnAction OnGameStart;
     [SerializeField]AudioClip _firstBG;
     [SerializeField]AudioClip _secondBG;
+    [SerializeField]AudioClip _thirdBG;
     AudioSource _audioSource;
     public static Board Instance { get; private set; }
     void Awake() 
@@ -167,6 +168,10 @@ public class Board : MonoBehaviour
             _audioSource.clip = _secondBG;
             _audioSource.Play();
             yield return new WaitForSeconds(_audioSource.clip.length);
+            _audioSource.clip = _thirdBG;
+            _audioSource.Play();
+            yield return new WaitForSeconds(_audioSource.clip.length);
+
         }
     }
     void SetBot() 

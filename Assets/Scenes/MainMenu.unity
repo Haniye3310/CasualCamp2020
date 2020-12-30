@@ -882,7 +882,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e03a8b25df6f0144792ad2345e3ffdd6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 33a4db74b3d6b124796ad70ec441fb80, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -913,7 +913,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoldierType: 1
-  _selectedIcon: {fileID: 21300000, guid: bc437a9e2637de0419a913d9a04c8aef, type: 3}
+  _selectedIcon: {fileID: 21300000, guid: 20c5d2608d4f7e440b03c08315caa064, type: 3}
 --- !u!1 &198780007
 GameObject:
   m_ObjectHideFlags: 0
@@ -1010,7 +1010,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &209820496
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2380,7 +2380,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3311f10c2fed42a4d941fb23ea95639a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c016c1d265232ab469984d7dca9dc44f, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2411,7 +2411,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SoldierType: 0
-  _selectedIcon: {fileID: 21300000, guid: f205eda93d8808545a2e06d8e2b320d1, type: 3}
+  _selectedIcon: {fileID: 21300000, guid: 2c332401d39297d4b8f2be83fa0e5492, type: 3}
 --- !u!1 &921296431
 GameObject:
   m_ObjectHideFlags: 0

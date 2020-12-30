@@ -65,6 +65,7 @@ public class Dice : MonoBehaviour
 
         if (locked == false)
         {
+            //for (int i = 0; i < Board.Instance.Pieces.Length; i++) { Board.Instance.Pieces[i].RotateCharacter(); }
             Board.Instance.ScalePiecesInSamePos();
             Board.Instance.SwitchTurn();
             if (_instance.OnSwitchTurn != null) {
