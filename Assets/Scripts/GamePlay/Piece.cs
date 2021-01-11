@@ -23,7 +23,7 @@ public class Piece : MonoBehaviour
     [SerializeField]float _flyDuration;
     [SerializeField] Ease _ease;
     //Sangar
-    //[SerializeField] GameObject _rejectTurnBtn;
+    [SerializeField] GameObject _rejectTurnBtn;
     public int MyTurn { get; private set; }
     public void SetMyTurn(int turn) 
     {
@@ -36,7 +36,7 @@ public class Piece : MonoBehaviour
         Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y].HighLight();
         _goal = Board.Instance.Tiles[(int)nextPos.x, (int)nextPos.y];
         //Sangar
-        //if(Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(3).gameObject.activeInHierarchy) { _rejectTurnBtn.SetActive(true); }
+        if (Board.Instance.Tiles[(int)this.transform.position.x, (int)this.transform.position.y].transform.GetChild(3).gameObject.activeInHierarchy) { _rejectTurnBtn.SetActive(true); }
     }
     public void Move()
     {
@@ -262,7 +262,7 @@ public class Piece : MonoBehaviour
     IEnumerator MoveCoroutine() 
     {
         //Sangar
-        //if(_rejectTurnBtn.activeInHierarchy) _rejectTurnBtn.SetActive(false);
+        if (_rejectTurnBtn.activeInHierarchy) _rejectTurnBtn.SetActive(false);
         while (Vector2.Distance(transform.position,_goal.transform.position)>0.01f) 
         {
             transform.position = Vector2.MoveTowards(transform.position,_goal.transform.position,5*Time.deltaTime);
@@ -314,19 +314,19 @@ public class Piece : MonoBehaviour
 
 
     //Sangar
-    //public void RejectTurnBtn_OnClick()
-    //{
-    //    for(int i = 0; i < Board.WIDTH; i++) 
-    //    {
-    //        for (int j = 0; j < Board.LENGTH; j++) 
-    //        {
-    //            if (Board.Instance.Tiles[i, j].IsHighLight()) { Board.Instance.Tiles[i, j].OffLight(); }
-    //        }
-    //    }
-            
-    //    Dice.SetLock(false);
-        
-    //}
+    public void RejectTurnBtn_OnClick()
+    {
+        for (int i = 0; i < Board.WIDTH; i++)
+        {
+            for (int j = 0; j < Board.LENGTH; j++)
+            {
+                if (Board.Instance.Tiles[i, j].IsHighLight()) { Board.Instance.Tiles[i, j].OffLight(); }
+            }
+        }
+
+        Dice.SetLock(false);
+
+    }
 
 
 
