@@ -4,7 +4,7 @@ using UnityEngine.UI;
 
 
 public enum SoldierType {
-    EN, FR, IT, None
+    EN, FR, None
 }
 
 public class StartGamePanel : MonoBehaviour
